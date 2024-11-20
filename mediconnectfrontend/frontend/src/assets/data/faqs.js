@@ -1,27 +1,26 @@
 export const faqs = [
   {
-    question: "What is your medical care?",
+    question: "What is MediConnect?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "MediConnect is an online platform that allows you to book appointments with certified doctors purchase medicines from the comfort of your home and it's freature helps to take the prompt actions .",
   },
   {
-    question: "What happens if I need to go a hospital?",
+    question: "Is MediConnect available 24/7?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "Yes, you can browse doctors, book appointments, and order medicines online 24/7. However, doctor availability and delivery timings depend on specific schedules and locations.",
   },
   {
-    question: "What happens if I need to go a hospital?",
-    content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+    question: "How do I sign up on MediConnect?",
+    content: "A: You can sign up using your email address, phone number, or social media accounts. Simply click on the  button and follow the instructions"
   },
   {
-    question: "Can I visit your medical office?",
+    question: "How can I contact customer support?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+    "You can reach us via email, phone, or live chat. Visit the Contact Us page for more details."
   },
   {
-    question: "Does you provide urgent care?",
+    question: "What should I do if I face technical issues on the website or app?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+    "If you encounter technical issues, contact our support team via email, phone, or live chat. We’ll resolve your issue as quickly as possible"
   },
 ];
