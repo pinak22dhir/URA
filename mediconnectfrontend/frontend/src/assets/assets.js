@@ -297,3 +297,16 @@ export const doctors = [
         }
     },
 ]
+
+
+export const location = [
+    {
+        hospitalName: 'Richmond General Hospital',
+        address: '57th Cross, Richmond Circle, Ring Road, London, England, 12345, UK',
+        phone: '+44 123 456 7890',
+        email: 'info@richmondhospital.com'
+       
+       
+    },
+
+]
