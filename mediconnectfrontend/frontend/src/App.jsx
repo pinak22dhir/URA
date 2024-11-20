@@ -12,6 +12,7 @@ import Footer from './components/Footer'
 import Doctors from './pages/doctors'
 import Articles from './pages/Articles'
 import MedicalChatbot from './components/chatbox'
+import Location from './pages/Location'
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Route path='/appointment/:docId' element={<Appointment/>}/>
         <Route path='/appointment/:docId' element={<Appointment/>}/>
         <Route path='/chatbot' element={<MedicalChatbot />} />
+        <Route path='/locations' element={<Location />} />
       </Routes>
       <Footer/>
     </div>
