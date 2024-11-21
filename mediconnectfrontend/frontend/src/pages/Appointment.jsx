@@ -70,7 +70,7 @@ const Appointments = () => {
 
   useEffect(()=>{
     getAvailableSlots()
-  })
+  },[docInfo])
 
   useEffect(()=>{
     console.log(docSlots);
@@ -140,3 +140,5 @@ const Appointments = () => {
 }
 
 export default Appointments
+
+

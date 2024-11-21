@@ -1,40 +1,74 @@
-import React from 'react';
-import { assets } from '../assets/assets';
+import React from "react";
+import image from "../assets/image.png";
+import ContactInfo from "./ContactInfo";
 
 const Contact = () => {
   return (
-    <div className="px-4 md:px-8 lg:px-16">
-      {/* Contact Header */}
-      <div className="text-center text-2xl pt-10 text-gray-500">
-        <p>
-          CONTACT <span className="text-gray-700 font-semibold">US</span>
-        </p>
-      </div>
+    <>
+      <div className="bg-gray-100">
+        {/* Contact Section */}
+        <section className="container mx-auto mt-8 p-4">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-blue-500">Contact Us</h2>
+            <p className="text-gray-600 mt-2">We'd love to hear from you</p>
+          </div>
+          <ContactInfo />
 
-      {/* Contact Content */}
-      <div className="my-10 flex flex-col items-center md:flex-row md:items-start gap-10 mb-28 text-sm">
-        {/* Contact Image */}
-        <img className="w-full md:max-w-[360px] rounded-lg" src={assets.contact_image} alt="Contact us" />
+          <div className="grid md:grid-cols-2 gap-6 mt-8 items-center">
+            {/* Contact Image */}
+            <div>
+              <img
+                src={image} // Replace with your image URL
+                alt="Contact Us"
+                className="rounded-lg shadow-lg w-full"
+              />
+            </div>
 
-        {/* Contact Info */}
-        <div className="flex flex-col justify-center items-start gap-4 md:gap-6 text-gray-600 md:text-left">
-          <p className="font-semibold text-lg text-gray-600">OUR OFFICE</p>
-          <p className="text-gray-500">
-            00000 Willms Station <br />
-            Suite 000, Washington, USA
-          </p>
-          <p className="text-gray-500">
-            Tel: +1-212-456-7890 <br />
-            Email: mediconnect@gmail.com
-          </p>
-          <p className="font-semibold text-lg text-gray-600">CAREERS AT MEDICONNECT</p>
-          <p className="text-gray-500">Learn more about our teams and job openings.</p>
-          <button className="border border-black px-8 py-3 text-sm hover:bg-black hover:text-white transition-all duration-300 rounded-md">
-            Explore More
-          </button>
-        </div>
+            {/* Contact Form */}
+            <div className="bg-white shadow-md p-6 rounded-lg">
+              <form className="space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-teal-600"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-teal-600"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Website"
+                    className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-teal-600"
+                  />
+                </div>
+                <div>
+                  <textarea
+                    placeholder="Message"
+                    rows="4"
+                    className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-700"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-blue-400 text-white py-3 rounded hover:bg-teal-700"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
       </div>
-    </div>
+    </>
   );
 };
 
