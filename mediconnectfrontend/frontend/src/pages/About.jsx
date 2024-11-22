@@ -1,62 +1,172 @@
 import React from 'react';
-import { assets } from '../assets/assets';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { assets } from '../assets/assets.js';
+
+
 
 const About = () => {
   return (
-    <div className="px-4 md:px-8 lg:px-16">
-      {/* ABOUT US Header */}
-      <div className="text-center text-2xl pt-10 text-gray-500">
-        <p>
-          ABOUT <span className="text-gray-700 font-medium">US</span>
+    <div>
+      {/* Hero Section */}
+      <section
+  className="hero bg-cover bg-center relative text-white"
+  style={{ backgroundImage: `url(${assets.about_banner})` }} // Replace with your image URL
+>
+  <div className="overlay absolute inset-0 bg-black bg-opacity-50"></div>
+  <div className="container relative z-10 mx-auto px-6 py-24 text-center">
+    <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+      Bringing health <br /> to life for the whole family.
+    </h1>
+    <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-white text-lg font-medium">
+      Discover More
+    </button>
+  </div>
+</section>
+
+
+      {/* Welcome Section */}
+      <section className="welcome py-20 bg-gray-50">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+          <img
+            src={assets.doc1}// Replace with the doctor's image URL
+            alt="Doctor"
+            className="rounded-lg shadow-md"
+          />
+          <div className="text md:w-1/2">
+            <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+              Welcome To <span className="text-blue-600">MediConnect.</span>
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <ul className="mb-6 text-gray-700">
+              <li className="flex items-center mb-3">
+                <span className="w-3 h-3 bg-blue-600 rounded-full inline-block mr-3"></span>
+                Lorem ipsum dolor sit amet
+              </li>
+              <li className="flex items-center mb-3">
+                <span className="w-3 h-3 bg-blue-600 rounded-full inline-block mr-3"></span>
+                Consectetur adipiscing elit
+              </li>
+              <li className="flex items-center mb-3">
+                <span className="w-3 h-3 bg-blue-600 rounded-full inline-block mr-3"></span>
+                Eiusmod tempor incididunt ut labore
+              </li>
+            </ul>
+            <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-white text-lg font-medium">
+              About Us
+            </button>
+          </div>
+        </div>
+      </section>
+
+       {/* Departments Section */}
+       <section className="container mx-auto px-6 lg:px-20">
+        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-4">
+          Departments
+        </h2>
+        <p className="text-gray-600 text-center mb-8">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore.
         </p>
-      </div>
-
-      {/* About Us Content */}
-      <div className="my-10 flex flex-col md:flex-row gap-8 md:gap-12">
-        <img className="w-full md:max-w-[360px] mx-auto md:mx-0" src={assets.about_image} alt="About us" />
-        <div className="flex flex-col justify-center gap-4 md:gap-6 md:w-2/3 text-sm text-gray-600">
-          <p>
-            At MediConnect, we are dedicated to providing top-notch healthcare services to our community. Our mission is
-            to deliver exceptional healthcare services that enhance the well-being of our patients through compassionate
-            care and innovative practices.
-          </p>
-          <p>
-            We aim to be a leader in the healthcare industry, recognized for our commitment to quality, patient-centered
-            care, and community health improvement.
-          </p>
-          <b className="text-gray-800">Our Vision</b>
-          <p>
-            To be a leader in the healthcare industry, recognized for our commitment to quality, patient-centered care,
-            and community health improvement.
-          </p>
+        <div className="flex flex-wrap justify-center gap-6 mb-12">
+          {[
+            { name: "Dentistry", icon: "🦷" },
+            { name: "Cardiology", icon: "❤️" },
+            { name: "ENT Specialists", icon: "👂" },
+            { name: "Astrology", icon: "🔮" },
+            { name: "Neuroanatomy", icon: "🧠" },
+            { name: "Blood Screening", icon: "🩸" },
+          ].map((dept, index) => (
+            <div
+              key={index}
+              className={`border hover:shadow-md transition duration-300 px-8 py-4 rounded-md text-center text-gray-600 cursor-pointer ${
+                index === 0 && "bg-blue-50 border-blue-400 text-blue-600"
+              }`}
+            >
+              <span className="block text-4xl mb-2">{dept.icon}</span>
+              <p className="font-medium">{dept.name}</p>
+            </div>
+          ))}
         </div>
-      </div>
+        <div className="grid md:grid-cols-2 gap-12">
+          <img
+            src={assets.doc2} // Replace with the actual image
+            alt="Department"
+            className="rounded-lg shadow-md"
+          />
+          <div className="flex flex-col justify-center">
+            <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+              Dentist with surgical mask holding scaler near patient
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
+              suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan
+              lacus vel facilisis.
+            </p>
+            <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md text-white">
+              Make An Appointment
+            </button>
+          </div>
+        </div>
+      </section>
 
-      {/* WHY CHOOSE US Header */}
-      <div className="text-center text-xl my-6 text-gray-500">
-        <p>
-          WHY <span className="text-gray-700 font-semibold">CHOOSE US</span>
+      {/* Doctors Section */}
+      <section className="container mx-auto px-6 lg:px-20 mt-16">
+        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-4">
+          Our Doctors
+        </h2>
+        <p className="text-gray-600 text-center mb-8">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore.
         </p>
-      </div>
-
-      {/* Why Choose Us Section */}
-      <div className="flex flex-col md:flex-row gap-4 md:gap-2 mb-20">
-        <div className="border px-8 md:px-12 py-8 sm:py-12 flex flex-col gap-3 text-sm md:text-base hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer rounded-lg">
-          <b>EFFICIENCY</b>
-          <p>Streamlined appointment scheduling that fits into your busy lifestyle.</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
+          {[...Array(3)].map((_, index) => (
+            <div
+              key={index}
+              className="text-center bg-white border rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300"
+            >
+              <img
+                src={assets.doc3} // Replace with doctor image
+                alt="Doctor"
+                className="w-full"
+              />
+              <div className="p-4">
+                <h3 className="font-semibold text-lg text-gray-800 mb-1">
+                  Jhon Smith
+                </h3>
+                <p className="text-gray-600 text-sm mb-4">Dentist</p>
+                <div className="flex justify-center space-x-4">
+                  <a
+                    href="#"
+                    className="text-blue-600 hover:text-blue-800 transition"
+                  >
+                    <i className="fab fa-facebook-f"></i>
+                  </a>
+                  <a
+                    href="#"
+                    className="text-blue-400 hover:text-blue-600 transition"
+                  >
+                    <i className="fab fa-twitter"></i>
+                  </a>
+                  <a
+                    href="#"
+                    className="text-blue-600 hover:text-blue-800 transition"
+                  >
+                    <i className="fab fa-linkedin-in"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-        <div className="border px-8 md:px-12 py-8 sm:py-12 flex flex-col gap-3 text-sm md:text-base hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer rounded-lg">
-          <b>CONVENIENCE</b>
-          <p>Access to a network of trusted healthcare professionals in your area.</p>
-        </div>
-        <div className="border px-8 md:px-12 py-8 sm:py-12 flex flex-col gap-3 text-sm md:text-base hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer rounded-lg">
-          <b>PERSONALIZATION</b>
-          <p>Tailored recommendations and reminders to help you stay on top of your health.</p>
-        </div>
-      </div>
+      </section>
     </div>
+
+
+
+
   );
 };
 
