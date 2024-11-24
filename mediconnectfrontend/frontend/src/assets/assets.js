@@ -30,6 +30,7 @@ import doc12 from './doc12.png'
 import doc13 from './doc13.png'
 import doc14 from './doc14.png'
 import doc15 from './doc15.png'
+import img from './img.jpg'
 import Dermatologist from './Dermatologist.svg'
 import Gastroenterologist from './Gastroenterologist.svg'
 import General_physician from './General_physician.svg'
@@ -62,6 +63,7 @@ export const assets = {
     doc3,
     doc4,
     about_banner,
+    img
 }
 
 export const specialityData = [

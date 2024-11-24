@@ -1,7 +1,6 @@
 import React from "react";
-import image from "../assets/image.png";
 import ContactInfo from "./ContactInfo";
-
+import { assets } from "../assets/assets";
 const Contact = () => {
   return (
     <>
@@ -18,7 +17,7 @@ const Contact = () => {
             {/* Contact Image */}
             <div>
               <img
-                src={image} // Replace with your image URL
+                src={assets.img} // Replace with your image URL
                 alt="Contact Us"
                 className="rounded-lg shadow-lg w-full"
               />
