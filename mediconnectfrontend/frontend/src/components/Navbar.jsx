@@ -37,6 +37,10 @@ const Navbar = () => {
             <li className='py-1'>Chatbot</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden'/>
         </NavLink>
+        <NavLink to='http://localhost:5173/'>
+            <li className='py-1'>Shop Now</li>
+            <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden'/>
+        </NavLink>
       </ul>
       <div className='flex items-center gap-4'>
         {
