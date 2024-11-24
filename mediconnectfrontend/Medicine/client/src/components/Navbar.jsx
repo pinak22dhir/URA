@@ -27,14 +27,20 @@ const Navbar = () => {
                 <p>Collection</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
             </NavLink>
-            <NavLink to="/about" className="flex flex-col items-center gap-1">
+            {/* <NavLink to="/about" className="flex flex-col items-center gap-1">
                 <p>About</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/contact" className="flex flex-col items-center gap-1">
                 <p>Contact</p>
                 <hr className='w-2/4 border-none h-[1.5px] bg-gray-700 hidden' />
             </NavLink>
+
+            <NavLink to="http://localhost:5175/">
+  <button className="py-2 px-6 bg-blue-600 text-white font-semibold rounded-md transition-all duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1">
+   Connect
+  </button>
+</NavLink>
         </ul>
 
         <div className='flex items-center gap-6'>
