@@ -14,6 +14,7 @@ import Articles from './pages/Articles'
 import MedicalChatbot from './components/chatbox.jsx'
 import Location from './pages/Location'
 import Register from './pages/Register'
+import HospitalMap from './components/HospitalMap.jsx'
 
 const App = () => {
   return (
@@ -32,7 +33,7 @@ const App = () => {
         <Route path='/appointment/:docId' element={<Appointment/>}/>
         <Route path='/appointment/:docId' element={<Appointment/>}/>
         <Route path='/chatbot' element={<MedicalChatbot />} />
-        <Route path='/locations' element={<Location />} />
+        <Route path='/locations' element={<HospitalMap />} />
         <Route path='/register' element={<Register />} />
       </Routes>
       <Footer/>
