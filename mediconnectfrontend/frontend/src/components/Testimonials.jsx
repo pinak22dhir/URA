@@ -6,14 +6,14 @@ const Testimonials = () => {
       id: 1,
       name: 'Dr. John Doe',
       specialization: 'Cardiologist',
-      feedback: 'The MediConnect platform has been an excellent tool for connecting with patients and managing appointments more efficiently. I highly recommend it!',
+      feedback: 'The Doc2You platform has been an excellent tool for connecting with patients and managing appointments more efficiently. I highly recommend it!',
       image: 'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=', 
     },
     {
       id: 2,
       name: 'Dr. Sarah Smith ',
       specialization: 'Pediatrician',
-      feedback: 'I’ve been using MediConnect for a few months now, and it has made my practice much more streamlined. The AI-based symptom checker is a great addition.',
+      feedback: 'I’ve been using Doc2You for a few months now, and it has made my practice much more streamlined. The AI-based symptom checker is a great addition.',
       image: 'https://media.istockphoto.com/id/479378798/photo/portrait-of-female-doctor.jpg?s=612x612&w=0&k=20&c=P-W8KSJBYhYj2RSx1Zhff6FCGvtRDC3AAzox8deMmew=', 
     },
     {

@@ -13,6 +13,7 @@ import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import SearchBar from "./components/SearchBar"
 import { ToastContainer, toast } from 'react-toastify';
+import MedicalChatbot from "./pages/chatbox"
 import 'react-toastify/dist/ReactToastify.css';
   
   export const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -36,6 +37,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path='/chatbot' element={<MedicalChatbot />} />
 
       </Routes>
       <Footer />

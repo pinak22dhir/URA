@@ -59,7 +59,7 @@ const Footer = () => {
           <div className="flex flex-col items-start gap-6">
             <img src={assets.logo} alt="Health Logo" className="w-32 md:w-40" />
             <p className="text-[16px] font-light leading-relaxed text-gray-600">
-              © {year} Developed by Team MediConnect. All rights reserved.
+              © {year} Developed by Team Doc2You. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
               {socialLinks.map((link, index) => (

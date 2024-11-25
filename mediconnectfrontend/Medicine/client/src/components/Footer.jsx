@@ -38,7 +38,7 @@ const Footer = () => {
         {/* ---- Copyright Section ---- */}
         <div className="border-t border-gray-200 mt-6">
           <p className="py-5 text-sm text-center text-gray-600">
-            &copy; 2024 MediConnect.dev - All Rights Reserved.
+            &copy; 2024 Doc2You.dev - All Rights Reserved.
           </p>
         </div>
       </div>
