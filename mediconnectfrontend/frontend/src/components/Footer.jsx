@@ -1,47 +1,140 @@
-import React from 'react';
-import { assets } from '../assets/assets';
+import React from "react";
+import { Link } from "react-router-dom";
+import { RiLinkedinFill } from "react-icons/ri";
+import {
+  AiFillYoutube,
+  AiFillGithub,
+  AiOutlineInstagram,
+} from "react-icons/ai";
+import { assets } from "../assets/assets";
+
+const socialLinks = [
+  {
+    path: "https://www.youtube.com/",
+    icon: <AiFillYoutube className="group-hover:text-primaryColor w-5 h-5" />,
+  },
+  {
+    path: "https://github.com/",
+    icon: <AiFillGithub className="group-hover:text-primaryColor w-5 h-5" />,
+  },
+  {
+    path: "https://www.instagram.com/",
+    icon: (
+      <AiOutlineInstagram className="group-hover:text-primaryColor w-5 h-5" />
+    ),
+  },
+  {
+    path: "https://www.linkedin.com/feed/",
+    icon: <RiLinkedinFill className="group-hover:text-primaryColor w-5 h-5" />,
+  },
+];
+
+const quickLinks01 = [
+  { path: "/home", display: "Home" },
+  { path: "/about", display: "About Us" },
+  { path: "/services", display: "Services" },
+  { path: "/blog", display: "Blog" },
+];
+
+const quickLinks02 = [
+  { path: "/find-a-doctor", display: "Find a Doctor" },
+  { path: "/request-appointment", display: "Request an Appointment" },
+  { path: "/find-location", display: "Find a Location" },
+  { path: "/get-opinion", display: "Get an Opinion" },
+];
+
+const quickLinks03 = [
+  { path: "/donate", display: "Donate" },
+  { path: "/contact", display: "Contact Us" },
+];
 
 const Footer = () => {
+  const year = new Date().getFullYear();
+
   return (
-    <div className="px-4 md:px-8 lg:px-16 md:mx-4">
-      <div className="flex flex-col sm:grid sm:grid-cols-2 md:grid-cols-[3fr_1fr_1fr] gap-10 my-10 mt-28 text-sm">
+    <footer className="bg-white">
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 py-12 border-t border-gray-300">
+        <div className="flex flex-col md:flex-row justify-between gap-12">
+          {/* Logo and Social Links */}
+          <div className="flex flex-col items-start gap-6">
+            <img src={assets.logo} alt="Health Logo" className="w-32 md:w-40" />
+            <p className="text-[16px] font-light leading-relaxed text-gray-600">
+              © {year} Developed by Team MediConnect. All rights reserved.
+            </p>
+            <div className="flex items-center gap-4">
+              {socialLinks.map((link, index) => (
+                <a
+                  href={link.path}
+                  key={index}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border border-gray-400 rounded-full flex items-center justify-center group hover:bg-gray-600 hover:text-white transition-colors duration-300"
+                >
+                  {link.icon}
+                </a>
+              ))}
+            </div>
+          </div>
 
-        {/* ---- Left Side ---- */}
-        <div className="flex flex-col items-center sm:items-start">
-          <img className="mb-4 h-24 w-24 md:h-32 md:w-36" src={assets.logo} alt="Logo" />
-          <p className="text-gray-600 leading-6 text-center sm:text-left">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-          </p>
-        </div>
+          {/* Quick Links Sections */}
+          <div className="flex flex-col gap-8 md:flex-row md:gap-12">
+            <div>
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">
+                Quick Links
+              </h2>
+              <ul className="space-y-3">
+                {quickLinks01.map((item, index) => (
+                  <li key={index}>
+                    <Link
+                      to={item.path}
+                      className="text-[16px] text-gray-600 hover:text-black transition-colors duration-300"
+                    >
+                      {item.display}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-        {/* ---- Center Side ---- */}
-        <div className="text-center sm:text-left">
-          <p className="text-xl font-medium mb-5">COMPANY</p>
-          <ul className="flex flex-col gap-2 text-gray-600">
-            <li>Home</li>
-            <li>About Us</li>
-            <li>Contact Us</li>
-            <li>Privacy Policy</li>
-          </ul>
-        </div>
+            <div>
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">
+                I want to:
+              </h2>
+              <ul className="space-y-3">
+                {quickLinks02.map((item, index) => (
+                  <li key={index}>
+                    <Link
+                      to={item.path}
+                      className="text-[16px] text-gray-600 hover:text-black transition-colors duration-300"
+                    >
+                      {item.display}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-        {/* ---- Right Side ---- */}
-        <div className="text-center sm:text-left">
-          <p className="text-xl font-medium mb-5">GET IN TOUCH</p>
-          <ul className="flex flex-col gap-2 text-gray-600">
-            <li>+91 7778889065</li>
-            <li>mediconnect@gmail.com</li>
-          </ul>
+            <div>
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">
+                Support
+              </h2>
+              <ul className="space-y-3">
+                {quickLinks03.map((item, index) => (
+                  <li key={index}>
+                    <Link
+                      to={item.path}
+                      className="text-[16px] text-gray-600 hover:text-black transition-colors duration-300"
+                    >
+                      {item.display}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* ---- Copyright Section ---- */}
-      <div className="border-t border-gray-200 mt-6">
-        <p className="py-5 text-sm text-center text-gray-600">
-          &copy; 2024 MediConnect.dev - All Rights Reserved.
-        </p>
-      </div>
-    </div>
+    </footer>
   );
 };
 

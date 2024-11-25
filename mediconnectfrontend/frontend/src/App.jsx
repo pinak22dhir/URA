@@ -11,7 +11,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Doctors from './pages/doctors'
 import Articles from './pages/Articles'
-import MedicalChatbot from './components/chatbox'
+import MedicalChatbot from './components/chatbox.jsx'
 import Location from './pages/Location'
 import Register from './pages/Register'
 

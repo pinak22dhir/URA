@@ -34,7 +34,7 @@ const Navbar = () => {
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden'/>
         </NavLink>
         <NavLink to='/chatbot'>
-            <li className='py-1'>Chatbot</li>
+            <li className='py-1'>MEDICO AI</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden'/>
         </NavLink>
         <NavLink to="http://localhost:5173/">
@@ -73,6 +73,8 @@ const Navbar = () => {
             <NavLink onClick={()=>setShowMenu(false)} to='/article'><p className='px-4 py-2 rounded inline-block'>ARTICLES</p></NavLink>
             <NavLink onClick={()=>setShowMenu(false)} to='/about'><p className='px-4 py-2 rounded inline-block'>ABOUT</p></NavLink>
             <NavLink onClick={()=>setShowMenu(false)} to='/contact'><p className='px-4 py-2 rounded inline-block'>CONTACT</p></NavLink>
+            <NavLink onClick={()=>setShowMenu(false)} to='/chatbot'><p className='px-4 py-2 rounded inline-block'>MEDICO AI</p></NavLink>
+
           </ul>
         </div>
       </div>
