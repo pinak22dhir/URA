@@ -81,85 +81,106 @@ const sortProduct = (e) =>{
 
   
   return (
-    <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 py-10 border-1'>
-      <div className='min-w-60'>
-        <p onClick={() =>setShowFilter(!showFilter)} className='my-2 text-xl font-semibold flex items-center cursor-pointer gap-2'>FILTERS</p>
-        <img src={assets.dropdown_icon}  className={`h-3 sm:hidden ${showFilter?'rotate-90':''}`} alt=""></img>
-
-
-
-        <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
-          <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
-          <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
-            <p className='flex gap-2'>
-              <input className='w-3' id='input' type='checkbox' value={'Antibiotic'} onChange={toggleCategory}/>Antibiotic
-              
-            </p>
-            <p className='flex gap-2'>
-              <input className='w-3' id='input' type='checkbox' value={'Analgesic'} onChange={toggleCategory}/>Analgesic
-              
-            </p>
-            <p className='flex gap-2'>
-              <input className='w-3' id='input' type='checkbox' value={'Antacid'} onChange={toggleCategory} />Antacid
-              
-            </p>
-          </div>
+    <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 py-10 px-4 border rounded-lg bg-gray-50 shadow-sm">
+    {/* FILTERS */}
+    <div className="min-w-60">
+      <p
+        onClick={() => setShowFilter(!showFilter)}
+        className="mb-4 text-xl font-semibold flex items-center cursor-pointer gap-2 text-gray-800 hover:text-blue-600 transition-colors"
+      >
+        FILTERS
+        <img
+          src={assets.dropdown_icon}
+          className={`h-4 sm:hidden transform ${
+            showFilter ? "rotate-90" : ""
+          } transition-transform`}
+          alt="Toggle"
+        />
+      </p>
+  
+      {/* Filters Section */}
+      <div
+        className={`border border-gray-300 rounded-md bg-white shadow-sm px-4 py-5 mt-2 ${
+          showFilter ? "" : "hidden"
+        } sm:block`}
+      >
+        <p className="mb-3 text-sm font-medium text-gray-700 uppercase tracking-wide">
+          CATEGORIES
+        </p>
+        <div className="flex flex-col gap-4 text-sm font-light text-gray-700">
+          <label className="flex items-center gap-2">
+            <input
+              className="form-checkbox w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-400"
+              type="checkbox"
+              value="Antibiotic"
+              onChange={toggleCategory}
+            />
+            <span className="hover:text-blue-500 transition-colors">
+              Antibiotic
+            </span>
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              className="form-checkbox w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-400"
+              type="checkbox"
+              value="Analgesic"
+              onChange={toggleCategory}
+            />
+            <span className="hover:text-blue-500 transition-colors">
+              Analgesic
+            </span>
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              className="form-checkbox w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-400"
+              type="checkbox"
+              value="Antacid"
+              onChange={toggleCategory}
+            />
+            <span className="hover:text-blue-500 transition-colors">
+              Antacid
+            </span>
+          </label>
         </div>
-
-
-
-        {/* <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
-          <p className='mb-3 text-sm font-medium'>TYPE</p>
-          <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
-            <p className='flex gap-2'>
-              <input className='w-3' id='input' type='checkbox' value={'Topwear'} onChange={toggleType}/>Topwear
-              
-            </p>
-            <p className='flex gap-2'>
-              <input className='w-3' id='input' type='checkbox' value={'Bottomwear'} onChange={toggleType}/>Bottomwear
-              
-            </p>
-            <p className='flex gap-2'>
-              <input className='w-3' id='input' type='checkbox' value={'Winterwear'} onChange={toggleType}/>Winterwear
-              
-            </p>
-          </div>
-        </div> */}
-
-
-
       </div>
-
-
-      {/* RIGHT SIDE */}
-      <div className='flex-1'>
-        <div className='flex justify-between text-base sm:text-2xl mb-4'>
-          <Title text1={'ALL '} text2={'Collection'} />
-
-          {/* product sort */}
-          <select id='input' onChange={(e) =>setSort(e.target.value)} className='border-2 border-gray-300 text-sm px-2'>
-            <option id='input' value="relavent">Sort by Relavent</option>
-            <option id='input' value="low-high">Low to High</option>
-            <option id='input' value="hgh-low">High to Low</option>
-          </select>
-        </div>
-
-
-        {/* map products */}
-        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
-          {
-            filteredProducts.map((item,index) =>{
-              return(
-                <ProductItem key={index} id={item._id} image={item.image} name={item.name} price={item.price} />
-              )
-            })
-            
-          }
-        </div>
-
-      </div>
-      
     </div>
+  
+    {/* PRODUCTS */}
+    <div className="flex-1">
+      {/* Title and Sorting */}
+      <div className="flex justify-between items-center mb-6">
+        <Title
+          text1={"ALL "}
+          text2={"Collection"}
+          className="text-gray-800 font-bold"
+        />
+        <select
+          id="input"
+          onChange={(e) => setSort(e.target.value)}
+          className="border border-gray-300 rounded-lg text-sm px-3 py-2 bg-white shadow-sm focus:ring focus:ring-blue-300 focus:outline-none transition"
+        >
+          <option value="relavent">Sort by Relevant</option>
+          <option value="low-high">Low to High</option>
+          <option value="high-low">High to Low</option>
+        </select>
+      </div>
+  
+      {/* Products Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {filteredProducts.map((item, index) => (
+          <ProductItem
+            key={index}
+            id={item._id}
+            image={item.image}
+            name={item.name}
+            price={item.price}
+            className="hover:shadow-lg transition-shadow duration-300 rounded-lg overflow-hidden bg-white border border-gray-200"
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+  
   )
 }
 
