@@ -36,18 +36,20 @@ const PlaceOrder = () => {
     e.preventDefault();
     try {
       let orderItems = [];
-      for(const items in cartItems){
-        for(const item in cartItems[items]){
-          if(cartItems[items][item]>0){
-            const itemInfo = structuredClone(products.find(product => product._id === items));
-            if(itemInfo){
-               itemInfo.size = item;
-               itemInfo.quantity = cartItems[items][item];
-                orderItems.push(itemInfo);
-            }
+      for (const itemId in cartItems) {
+        if (cartItems[itemId] > 0) {
+          // Find the product details using the itemId
+          const itemInfo = products.find((product) => product._id === itemId);
+          if (itemInfo) {
+            // Add quantity directly from the cartItems
+            orderItems.push({
+              ...itemInfo,
+              quantity: cartItems[itemId],
+            });
           }
         }
       }
+      
 
       let orderData ={
         address:formData,

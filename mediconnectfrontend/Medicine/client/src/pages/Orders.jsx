@@ -54,7 +54,6 @@ const Orders = () => {
 
   useEffect(() =>{
     loadOrderData()
-    console.log(orderData.length)
   },[token]);
 
 
