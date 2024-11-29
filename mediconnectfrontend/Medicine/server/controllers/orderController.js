@@ -12,6 +12,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const placeOrder = async(req,res)=>{
     try {
         const {userId,items,amount,address} = req.body;
+        
         const orderData = {
             userId,
             items,
@@ -22,7 +23,7 @@ const placeOrder = async(req,res)=>{
             date:Date.now(),
 
         }
-
+        console.log("items",orderData.items);
         const newOrder = new orderModel(orderData);
         await newOrder.save();
 

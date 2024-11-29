@@ -67,6 +67,14 @@ const Orders = () => {
       toast.error("Failed to fetch orders.");
     }
   };
+<<<<<<< HEAD
+=======
+  
+
+  useEffect(() =>{
+    loadOrderData()
+  },[token]);
+>>>>>>> b0bc51d95bfcb025867a9969d6f82bc552627e08
 
   useEffect(() => {
     if (token) {

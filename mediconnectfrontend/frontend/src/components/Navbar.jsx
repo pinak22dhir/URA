@@ -42,6 +42,11 @@ const Navbar = () => {
     Shop Now
   </button>
 </NavLink>
+<NavLink to="http://localhost:3001/">
+  <button className="py-2 px-6 bg-[#f49bab] text-white font-semibold rounded-md transition-all duration-300 ease-in-out hover:bg-[#dc3b59] hover:shadow-lg hover:-translate-y-1">
+   FemTrack
+  </button>
+</NavLink>
 
       </ul>
       <div className='flex items-center gap-4'>
