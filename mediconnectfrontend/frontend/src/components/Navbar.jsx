@@ -37,7 +37,7 @@ const Navbar = () => {
             <li className='py-1'>MEDICO AI</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden'/>
         </NavLink>
-        <NavLink to="http://localhost:5173/">
+        <NavLink to="http://localhost:5176/">
   <button className="py-2 px-6 bg-blue-600 text-white font-semibold rounded-md transition-all duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1">
     Shop Now
   </button>

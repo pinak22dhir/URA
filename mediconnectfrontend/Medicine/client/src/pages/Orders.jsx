@@ -10,71 +10,50 @@ const Orders = () => {
 
   const loadOrderData = async () => {
     try {
+      console.log('Token:', token);
       if (!token) {
-        toast.error("User not authenticated.");
+
         return;
       }
 
+
+      console.log('Sending request...');
       const response = await axios.post(
-        `${backendUrl}/api/order/user`,
+        backendUrl + "/api/order/user",
         {},
         { headers: { token } }
       );
+      console.log('Request headers:', { token });
+      console.log('Response received:', response);
+      console.log('Response Data:', response.data);
 
-      console.log("API Response:", response.data);
-
-      if (response.data.success && Array.isArray(response.data.orders)) {
+      if (response.data.success) {
         let allOrdersItem = [];
-        // response.data.orders.forEach((order) => {
-        //   if (Array.isArray(order.items)) {
-        //     order.items.forEach((item) => {
-        //       item["status"] = order.status;
-        //       item["date"] = order.date;
-        //       item["payment"] = order.payment;
-        //       item["paymentMethod"] = order.paymentMethod;
-        //       allOrdersItem.push(item);
-        //     });
-        //   }
-        // });
-        response.data.orders.forEach(order => {
-          const options = {
-            status: order.status,
-            date: order.date,
-            payment: order.payment,
-            paymentMethod: order.paymentMethod,
-            image:order.image ? `${backendUrl}/${order.image}` : "",
-          }
-          allOrdersItem.unshift(options)
+        response.data.orders.forEach((order) => {
+          order.items.forEach((item) => {
+            item['status'] = order.status;
+            item['date'] = order.date;
+            item['payment'] = order.payment;
+            item['paymentMethod'] = order.paymentMethod;
+            allOrdersItem.push(item);
+          });
         });
-        console.log("Some: ", allOrdersItem)
-        console.log(allOrdersItem.length)
-        console.log(allOrdersItem)
-        if (allOrdersItem.length > 0) {
-          console.log("Working")
-          // allOrdersItem = allOrdersItem.reverse();
-          setOrderData([...allOrdersItem]);
-          // setOrderData(prev => {
-          //   return allOrdersItem
-          // })
-        } else {
-          toast.error("No orders found.");
-        }
+
+        setOrderData(allOrdersItem.reverse());
       } else {
-        toast.error("No orders found.");
+        toast.error('No orders found.');
       }
+
     } catch (error) {
-      console.error("Error loading order data:", error);
-      toast.error("Failed to fetch orders.");
+      console.error('Error loading order data:', error);
+      toast.error(error.message);
     }
   };
-<<<<<<< HEAD
-=======
-  
+
 
   useEffect(() =>{
     loadOrderData()
   },[token]);
->>>>>>> b0bc51d95bfcb025867a9969d6f82bc552627e08
 
   useEffect(() => {
     if (token) {

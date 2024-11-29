@@ -36,7 +36,7 @@ const Navbar = () => {
             
 
 <NavLink className="flex flex-col items-center gap-1" to='/chatbot'><p>MEDICO AI</p></NavLink>
-<NavLink to="http://localhost:5174/">
+<NavLink to="http://localhost:5173/">
   <button className="py-2 px-6 bg-blue-600 text-white font-semibold rounded-md transition-all duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1">
    Connect
   </button>
