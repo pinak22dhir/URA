@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import articleImage from '../assets/article_image.png'; // Import your static image here
 
 const Articles = () => {
@@ -7,6 +7,19 @@ const Articles = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState('');
+
+  // Load articles from local storage on component mount
+  useEffect(() => {
+    const storedArticles = JSON.parse(localStorage.getItem('articles'));
+    if (storedArticles) {
+      setArticles(storedArticles);
+    }
+  }, []);
+
+  // Save articles to local storage whenever they change
+  useEffect(() => {
+    localStorage.setItem('articles', JSON.stringify(articles));
+  }, [articles]);
 
   // Function to handle posting an article
   const handlePostArticle = () => {
@@ -75,7 +88,6 @@ const Articles = () => {
         </div>
       </div>
 
-
       {/* Articles List */}
       <div className="space-y-8 mb-16">
         {articles.length === 0 ? (
@@ -88,10 +100,10 @@ const Articles = () => {
               <p className="text-sm text-gray-500 mb-4">
                 Posted by <span className="font-medium">{article.author}</span> on {article.date}
               </p>
-              <div className=" cursor-pointer flex items-center gap-4">
-                <buttonc onClick={() => handleLike(article.id)} className="flex items-center text-green-500 hover:text-green-700 transition">
+              <div className="cursor-pointer flex items-center gap-4">
+                <button onClick={() => handleLike(article.id)} className="flex items-center text-green-500 hover:text-green-700 transition">
                   👍 {article.likes}
-                </buttonc>
+                </button>
                 <button onClick={() => handleDislike(article.id)} className="flex items-center text-red-500 hover:text-red-700 transition">
                   👎 {article.dislikes}
                 </button>
@@ -124,6 +136,3 @@ const Articles = () => {
 };
 
 export default Articles;
-
-
-
