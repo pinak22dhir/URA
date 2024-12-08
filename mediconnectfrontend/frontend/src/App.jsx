@@ -15,10 +15,13 @@ import MedicalChatbot from './components/chatbox.jsx'
 import Location from './pages/Location'
 import Register from './pages/Register'
 import HospitalMap from './components/HospitalMap.jsx'
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
-    <div className='mx-2 sm:mx-[6%]'>
+    <div className='mx-2 sm:mx-[10%]'>
+      <ToastContainer/>
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
