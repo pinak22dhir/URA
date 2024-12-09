@@ -38,26 +38,32 @@ const registerUser=async(req,res)=>{
     }
 }
 
-const loginUser=async(req,res)=>{
-    try{
-        const {email,password}=req.body
-        const user=await userModel.findOne({email});
+const loginUser = async(req,res) => {
+    try {
+        // parsing data
+        const {email,password} = req.body
 
+        // find email
+        const user = await userModel.findOne({email})
+
+        // checking user
         if(!user){
-            res.json({success:false,message:'User not exists'})
-        }
-        const isMatch=await bcrypt.compare(password,user.password)
-        if(isMatch){
-            const token=jwt.sign({id:user._id},process.env.JWT_SECRET)
-            res.json({successs:true,token})
-        }else{
-            res.json({success:false, message:"Invalid crediantials "});
+            return res.json({success:false, password:"User doesn't exist"})
         }
 
-    }  catch(error)
-    {
+        // match password
+        const isMatch = await bcrypt.compare(password,user.password)
+
+        if(isMatch){
+            const token = jwt.sign({id:user._id}, process.env.JWT_SECRET)
+            res.json({success:true, token})
+        } else{
+            res.json({success:false, message:"Invalid Credentials"})
+        }
+        
+    } catch (error) {
         console.log(error)
-        res.json({success:false,message:error.message})
+        res.json({success:false, message:error.message})
     }
 }
 
