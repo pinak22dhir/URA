@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import bgImage from "./imgggg.webp";
 
 const Login = () => {
   const { backendUrl, token, setToken } = useContext(AppContext);
@@ -59,16 +60,26 @@ const Login = () => {
   }, [token, navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-3xl overflow-hidden">
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+      }}
+    >
+      <div
+        className="w-full max-w-lg bg-white rounded-lg shadow-lg overflow-hidden backdrop-blur-md"
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.8)", // Adjust opacity
+        }}
+      >
         <div className="p-6 sm:p-10">
-          <h2 className="text-3xl font-semibold text-gray-700 text-center mb-4">
-            {state === "Sign Up" ? "Create Your Account" : "Welcome Back!"}
+          <h2 className="text-4xl font-semibold text-gray-800 text-center mb-4">
+            {state === "Sign Up" ? "Join Our Platform" : "Welcome Back!"}
           </h2>
-          <p className="text-sm text-gray-500 text-center mb-8">
+          <p className="text-sm text-gray-600 text-center mb-8">
             {state === "Sign Up"
-              ? "Sign up to start your journey with us."
-              : "Login to access your account."}
+              ? "Create an account and start learning today."
+              : "Login to continue your journey."}
           </p>
           <form onSubmit={onSubmitHandler}>
             {state === "Sign Up" && (
@@ -78,7 +89,7 @@ const Login = () => {
                 </label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-400"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                   placeholder="Enter your name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -92,7 +103,7 @@ const Login = () => {
               </label>
               <input
                 type="email"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -105,7 +116,7 @@ const Login = () => {
               </label>
               <input
                 type={showPassword ? "text" : "password"}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-400 pr-10"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 pr-10"
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -122,10 +133,10 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-2.5 text-lg font-semibold text-white rounded-lg shadow-md transition-all ${
+              className={`w-full py-2.5 text-lg font-semibold text-white rounded-lg transition ${
                 loading
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-indigo-600 hover:bg-indigo-700"
+                  : "bg-indigo-500 hover:bg-indigo-600"
               }`}
             >
               {loading
@@ -135,12 +146,12 @@ const Login = () => {
                 : "Login"}
             </button>
           </form>
-          <p className="mt-6 text-center text-sm text-gray-500">
+          <p className="mt-6 text-center text-sm text-gray-600">
             {state === "Sign Up" ? (
               <>
                 Already have an account?{" "}
                 <span
-                  className="text-indigo-600 cursor-pointer underline"
+                  className="text-indigo-600 cursor-pointer"
                   onClick={() => setState("Login")}
                 >
                   Login
@@ -150,7 +161,7 @@ const Login = () => {
               <>
                 Don't have an account?{" "}
                 <span
-                  className="text-indigo-600 cursor-pointer underline"
+                  className="text-indigo-600 cursor-pointer"
                   onClick={() => setState("Sign Up")}
                 >
                   Sign Up
