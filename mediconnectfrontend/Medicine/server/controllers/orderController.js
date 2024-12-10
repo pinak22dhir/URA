@@ -5,8 +5,14 @@ import Razorpay from "razorpay";
 
 
 const currency = 'usd'
+const currencyRazor = 'inr'
 const deliveryCharge =10
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+const razorpayInstance  = new Razorpay({
+    key_id:process.env.RAZORPAY_KEY_ID,
+    key_secret:process.env.RAZORPAY_KEY_SECRET,
+
+})
 
 
 const placeOrder = async(req,res)=>{
@@ -118,9 +124,69 @@ const verifyStripe = async(req,res)=>{
     }
 }
 
-const placeOrderRazorpay = async(req,res)=>{
+const placeOrderRazorpay = async (req, res) => {
+    try {
+        const { userId, items, amount, address } = req.body;
 
-}
+        // Create and save the order in the database
+        const orderData = {
+            userId,
+            items,
+            address,
+            amount,
+            paymentMethod: 'Razorpay',
+            payment: false,
+            date: Date.now(),
+        };
+
+        const newOrder = new orderModel(orderData);
+        await newOrder.save();
+
+        // Define Razorpay order options
+        const options = {
+            amount: amount * 100, // Amount in smallest currency unit (e.g., paise for INR)
+            currency: currencyRazor.toUpperCase(),
+            receipt: newOrder._id.toString(),
+        };
+
+        // Create the Razorpay order
+        const razorpayOrder = await razorpayInstance.orders.create(options);
+
+        // Respond with success and the created Razorpay order
+        res.json({ success: true, order: razorpayOrder });
+    } catch (error) {
+        console.error(error);
+        res.json({ success: false, message: "Internal Server Error" });
+    }
+};
+const verifyRazorpay = async (req, res) => {
+    console.log("Verifying Razorpay payment..."); // This will check if the endpoint is being hit.
+    try {
+      const { userId, razorpay_order_id } = req.body;
+  
+      if (!razorpay_order_id || !userId) {
+        return res.status(400).json({ success: false, message: "Missing required fields." });
+      }
+  
+      const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
+      console.log("Fetched Razorpay order info:", orderInfo);
+  
+      if (orderInfo.status === 'paid') {
+        await orderModel.findByIdAndUpdate(orderInfo.receipt, { payment: true });
+        await userModel.findByIdAndUpdate(userId, { cartData: {} });
+        res.json({ success: true, message: "Payment Success" });
+      } else {
+        res.json({ success: false, message: "Payment Failed" });
+      }
+  
+    } catch (error) {
+      console.error("Error during payment verification:", error);
+      res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+  };
+  
+  
+
 const allOrders = async(req,res)=>{
 
     try {
@@ -152,4 +218,4 @@ const updateStatus = async(req,res)=>{
 
 }
 
-export {verifyStripe,placeOrder,placeOrderStripe,placeOrderRazorpay,allOrders,userOrders,updateStatus};
+export {verifyRazorpay,verifyStripe,placeOrder,placeOrderStripe,placeOrderRazorpay,allOrders,userOrders,updateStatus};

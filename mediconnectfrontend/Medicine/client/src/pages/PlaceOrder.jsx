@@ -32,16 +32,52 @@ const PlaceOrder = () => {
 
   }
 
-  const onSubmitHandler = async (e) =>{
+  const initPay = (order) => {
+    const options = {
+      key:"rzp_test_Y2bwgRQTVyKPpZ", // Replace with your Razorpay Key
+      amount: order.amount, 
+      currency: order.currency,
+      name: "order payemnt",
+      description: "Order Payment",
+      order_id: order.id,
+      receipt : order.receipt,
+      handler: async (response) => {
+        // Handle payment success
+        console.log("Payment successful", response);
+       
+        try {
+          const { data } = await axios.post(backendUrl + "/api/order/verifyRazorpay", response, { headers: { token } });
+         
+
+          if(data.success){
+            navigate("/orders");
+          
+            setCartItems({});
+          }
+        } catch (error) {
+          console.error("Error verifying Razorpay payment:", error);
+          toast.error("Failed to verify payment. Please contact support.");
+          
+        }
+      }
+      
+    };
+  
+    const razorpay = new window.Razorpay(options);
+    razorpay.open();
+  };
+  
+
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
+   
+  
     try {
       let orderItems = [];
       for (const itemId in cartItems) {
         if (cartItems[itemId] > 0) {
-          // Find the product details using the itemId
           const itemInfo = products.find((product) => product._id === itemId);
           if (itemInfo) {
-            // Add quantity directly from the cartItems
             orderItems.push({
               ...itemInfo,
               quantity: cartItems[itemId],
@@ -49,58 +85,72 @@ const PlaceOrder = () => {
           }
         }
       }
-      
-
-      let orderData ={
-        address:formData,
-        items:orderItems,
-        amount:getCartamount()+delivery_fee
-      }
-
-      switch(method){
-        case 'cod':
-          const response = await axios.post(backendUrl+ "/api/order/place",orderData,{headers:{token}})
-          console.log(response.data);
-          if(response.data.message === 'Order Placed Successfully'){
-            navigate('/orders');
+  
+      let orderData = {
+        address: formData,
+        items: orderItems,
+        amount: getCartamount() + (delivery_fee || 0),
+      };
+  
+      switch (method) {
+        case "cod":
+          const response = await axios.post(backendUrl + "/api/order/place", orderData, { headers: { token } });
+          if (response.data.message === "Order Placed Successfully") {
+            setFormData({
+              name: "",
+              email: "",
+              street: "",
+              city: "",
+              state: "",
+              zipcode: "",
+              phone: "",
+            });
+            setMethod("cod");
+            navigate("/orders");
             setCartItems({});
-            
-          }
-          else{
+          } else {
             toast.error(response.data.message);
           }
-         break;
-
-        case 'stripe':
-          const responseStripe = await axios.post(backendUrl+"/api/order/stripe",orderData , {headers:{token}});
-          console.log(responseStripe.data);
-          if(responseStripe.data.success){
-
-           const {session_url} =  responseStripe.data;
-           window.location.replace(session_url);
-          }
-          else{
+          break;
+  
+        case "stripe":
+          const responseStripe = await axios.post(backendUrl + "/api/order/stripe", orderData, { headers: { token } });
+          if (responseStripe.data.success) {
+            window.location.replace(responseStripe.data.session_url);
+          } else {
             toast.error(responseStripe.data.message);
           }
-
-
-        break;
-
-
-
-
-        
+          break;
+  
+          case "razorpay":
+            try {
+              const responseRazorpay = await axios.post(
+                backendUrl + "/api/order/razorpay",
+                orderData,
+                { headers: { token } }
+              );
+              console.log(responseRazorpay); // Log the response
+              if (responseRazorpay.data.success) {
+                initPay(responseRazorpay.data.order);
+              } else {
+                toast.error(responseRazorpay.data.message || "Failed to initialize Razorpay payment.");
+              }
+            } catch (error) {
+              console.error("Error in Razorpay API call:", error); // Log the error
+              toast.error("Failed to connect to Razorpay. Please try again.");
+            }
+            break;
+          
+  
         default:
-          orderData.paymentMethod = 'COD';
-          orderData.payment = false;
-        
+          toast.error("Invalid payment method selected.");
       }
-      
     } catch (error) {
-      
+      console.error("Error placing the order:", error);
+      toast.error("Failed to place the order. Please try again.");
     }
-
-  }
+  };
+  
   return (
           <form onSubmit={onSubmitHandler}>
     <div className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
