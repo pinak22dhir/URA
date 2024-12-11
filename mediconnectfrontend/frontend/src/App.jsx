@@ -9,8 +9,9 @@ import MyAppointments from "./pages/MyAppointments";
 import Appointment from "./pages/Appointment";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Doctors from "./pages/doctors";
+import Doctors from "./pages/Doctors";
 import Articles from "./pages/Articles";
+import ArticleDetail from "./pages/ArticleDetail";
 import MedicalChatbot from "./components/chatbox.jsx";
 import Location from "./pages/Location";
 // import Register from './pages/Register'
@@ -34,9 +35,12 @@ const App = () => {
         <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/my-appointments" element={<MyAppointments />} />
         <Route path="/appointment/:docId" element={<Appointment />} />
+        <Route path="/articles" element={<Articles />} />
+<      Route path="/article/:id" element={<ArticleDetail />} />
+
         <Route path="/chatbot" element={<MedicalChatbot />} />
         <Route path="/locations" element={<HospitalMap />} />
-        {/*  <Route path='/register' element={<Register />} />*/}
+         {/* <Route path='/register' element={<Register />} /> */}
       </Routes>
       <Footer />
     </div>
