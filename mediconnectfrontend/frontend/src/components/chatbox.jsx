@@ -6,13 +6,15 @@ export default function MedicalChatbot() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false); // State to manage loading status
+  const [error, setError] = useState(""); // State to manage error messages
 
   async function generateAnswer() {
     setLoading(true); // Set loading to true when the answer is being generated
+    setError(""); // Reset error state before making the request
 
     try {
       const response = await axios({
-        url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyCi-AQlA5EYZsx1PcdwvoFE1CoG0TS0PEg",
+        url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDyOg5sDRvZdZ5raRUgUoYMKVxNRTT3NEw",
         method: "post",
         data: {
           contents: [{ parts: [{ text: question }] }],
@@ -21,7 +23,20 @@ export default function MedicalChatbot() {
       setAnswer(response.data.candidates[0].content.parts[0].text);
     } catch (error) {
       console.error("Error generating answer:", error);
-      setAnswer("Something went wrong. Please try again.");
+
+      // Check if error response contains a message
+      if (error.response) {
+        // Server responded with an error
+        setError(`Error: ${error.response.data.error.message}`);
+      } else if (error.request) {
+        // Request was made but no response received
+        setError("No response from server. Please check your internet connection.");
+      } else {
+        // Something else went wrong
+        setError("Something went wrong. Please try again.");
+      }
+
+      setAnswer(""); // Clear the answer in case of an error
     } finally {
       setLoading(false); // Set loading to false after the answer is generated or on error
     }
@@ -71,6 +86,14 @@ export default function MedicalChatbot() {
           )}
         </button>
       </section>
+
+      {/* Error Message */}
+      {error && (
+        <section className="w-full max-w-2xl bg-red-50 text-red-700 shadow-md rounded-2xl border border-red-200 mt-4 p-6">
+          <h2 className="text-lg font-semibold">Error:</h2>
+          <p>{error}</p>
+        </section>
+      )}
 
       {/* Answer Section */}
       <section className="w-full max-w-2xl bg-gray-50 shadow-md rounded-2xl border border-gray-200 mt-8 p-6 hover:scale-105 hover:shadow-2xl transition-all duration-500">
