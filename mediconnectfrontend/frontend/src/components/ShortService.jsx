@@ -57,7 +57,7 @@ const ShortServices = () => {
             icon={icons02}
             title="Find Nearby Hospitals"
             description="Locate our healthcare facilities and find the nearest one."
-            link="/locations"
+            link="/nearby-hospital"
           />
           <ServiceCard
             icon={icons01}
