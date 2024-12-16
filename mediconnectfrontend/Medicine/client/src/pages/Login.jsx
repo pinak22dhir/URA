@@ -4,6 +4,7 @@ import { backendUrl } from '../App';
 import axios from 'axios';
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
+import bgImage from "./imgggg.webp";
 
 const Login = () => {
   const [current, setCurrent] = useState('Login');
@@ -50,61 +51,72 @@ const Login = () => {
   }, []);
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="flex flex-col items-center w-[90%] sm:max-w-lg m-auto mt-14 gap-6 bg-white shadow-lg p-8 rounded-lg"
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{  backgroundImage: `url(${bgImage})` }}
     >
-      <div className="inline-flex flex-col items-center gap-2 mb-4">
-        <h1 className="text-3xl font-semibold text-gray-800">{current}</h1>
-        <p className="text-sm text-gray-500">
-          {current === 'Login' ? 'Sign in to your account' : 'Create a new account'}
-        </p>
-        <hr className="border-t-2 w-16 border-blue-500" />
-      </div>
-
-      {current === 'Login' ? null : (
-        <input
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          type="text"
-          className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Name"
-          required
-        />
-      )}
-      <input
-        id="email"
-        type="email"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-        className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        placeholder="Email"
-        required
-      />
-      <input
-        id="pass"
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-        className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        placeholder="Password"
-        required
-      />
-      <div className="w-full flex justify-between items-center text-sm mt-[-8px] text-gray-500">
-        {current === 'Login' ? <p className="cursor-pointer hover:underline">Forgot Password?</p> : null}
-        <p
-          onClick={() => setCurrent(current === 'Login' ? 'Sign Up' : 'Login')}
-          className="cursor-pointer text-blue-500 hover:underline"
-        >
-          {current === 'Login' ? 'Create Account' : 'Login Here'}
-        </p>
-      </div>
-      <button
-        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-all duration-200"
+      <div
+        className="bg-white bg-opacity-80 backdrop-blur-lg shadow-xl rounded-lg p-8 w-[90%] sm:max-w-lg transition-all duration-500"
       >
-        {current === 'Login' ? 'Sign In' : 'Sign Up'}
-      </button>
-    </form>
+        <form onSubmit={onSubmit} className="flex flex-col items-center gap-6">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-gray-800 mb-2 transition-colors duration-300">
+              {current}
+            </h1>
+            <p className="text-sm text-gray-600">
+              {current === 'Login' ? 'Sign in to your account' : 'Create a new account'}
+            </p>
+          </div>
+
+          {current === 'Sign Up' && (
+            <input
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              type="text"
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Name"
+              required
+            />
+          )}
+          <input
+            id="email"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Email"
+            required
+          />
+          <input
+            id="pass"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Password"
+            required
+          />
+
+          <div className="w-full flex justify-between items-center text-sm mt-[-8px] text-gray-500">
+            {current === 'Login' && (
+              <p className="cursor-pointer hover:underline">Forgot Password?</p>
+            )}
+            <p
+              onClick={() => setCurrent(current === 'Login' ? 'Sign Up' : 'Login')}
+              className="cursor-pointer text-blue-500 hover:underline"
+            >
+              {current === 'Login' ? 'Create Account' : 'Login Here'}
+            </p>
+          </div>
+
+          <button
+            className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-2 rounded-md hover:from-blue-600 hover:to-blue-800 transition-transform transform hover:scale-105"
+          >
+            {current === 'Login' ? 'Sign In' : 'Sign Up'}
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 
