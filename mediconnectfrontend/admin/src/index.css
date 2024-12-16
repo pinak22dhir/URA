@@ -3,16 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
-::-webkit-scrollbar {
-  @apply hidden;
+::-webkit-scrollbar{
+    @apply hidden
 }
 
 *{
-    font-family:Outfit;
+    font-family: Outfit;
 }
-
-
-
-
-
-

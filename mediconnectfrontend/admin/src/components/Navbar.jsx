@@ -1,44 +1,44 @@
-import React, { useContext } from "react";
-import { assets } from "../assets/assets.js";
+import React from "react";
+import { assets } from "../assets/assets";
+import { useContext } from "react";
 import { AdminContext } from "../context/AdminContext";
 import { useNavigate } from "react-router-dom";
+import { DoctorContext } from "../context/DoctorContext";
 
-export default function Navbar() {
+const NavBar = () => {
   const { aToken, setAToken } = useContext(AdminContext);
-    const navigate=useNavigate()
+  const { dToken, setDToken } = useContext(DoctorContext);
+
+  const navigate = useNavigate();
 
   const logout = () => {
-    navigate('/')
+    navigate("/");
     aToken && setAToken("");
     aToken && localStorage.removeItem("aToken");
+    dToken && setDToken("");
+    dToken && localStorage.removeItem("dToken");
   };
 
-
   return (
-    <nav className="bg-gradient-to-r from-teal-500 to-blue-500 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
-        <div className="flex items-center justify-between py-4">
-          {/* Logo and Role */}
-          <div className="flex items-center gap-4">
-            <img
-              src={assets.admin_logo}
-              alt="Logo"
-              className="h-12 w-12 rounded-full border-2 border-white shadow-md"
-            />
-            <p className="text-xl lg:text-2xl font-semibold text-white tracking-wide">
-              {aToken ? "Admin Dashboard" : "Doctor Dashboard"}
-            </p>
-          </div>
-
-          {/* Logout Button */}
-          <button
-            onClick={logout}
-            className="bg-white text-teal-500 font-medium px-5 py-2 rounded-lg shadow hover:bg-gray-100 hover:scale-105 transition-all duration-300"
-          >
-            Logout
-          </button>
-        </div>
+    <div className="flex justify-between items-center px-4 sm:px-10 border-b bg-white">
+      <div className="flex items-center gap-2 text-xs">
+        <img
+          className="w-24 h-24 sm:w-24 cursor-pointer"
+          src={assets.logoo}
+          alt=""
+        />
+        <p className="border px-2.5 py-0.5 rounded-full border-gray-500 text-gray-600">
+          {aToken ? "Admin" : "Doctor"}
+        </p>
       </div>
-    </nav>
+      <button
+        onClick={logout}
+        className="bg-primary text-white text-sm px-10 py-2 rounded-full "
+      >
+        Logout
+      </button>
+    </div>
   );
-}
+};
+
+export default NavBar;
