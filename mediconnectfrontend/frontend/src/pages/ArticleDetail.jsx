@@ -13,7 +13,7 @@ const ArticleDetail = () => {
       const foundArticle = storedArticles.find((article) => article.id.toString() === id);
       setArticle(foundArticle);
     }
-  }, [id]);
+  }, [id]); // Re-run this effect when the `id` changes
 
   // Handle loading or not found states
   if (!article) {
