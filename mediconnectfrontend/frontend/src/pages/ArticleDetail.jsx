@@ -13,14 +13,9 @@ const ArticleDetail = () => {
       const foundArticle = storedArticles.find((article) => article.id.toString() === id);
       setArticle(foundArticle);
     }
-<<<<<<< HEAD
   }, [id]); // Re-run this effect when the `id` changes
- console.log(articles);
-=======
-  }, [id]);
 
   // Handle loading or not found states
->>>>>>> upstream/main
   if (!article) {
     return <p>{!JSON.parse(localStorage.getItem("articles")) ? "No articles found." : "Loading article..."}</p>;
   }

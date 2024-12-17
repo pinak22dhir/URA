@@ -3,10 +3,10 @@ import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi"; // Eye icons for password toggle
 
 const Login = () => {
   const [state, setState] = useState("Sign Up");
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,8 +19,6 @@ const Login = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    return;
-
     if (state === "Sign Up") {
       const { data } = await axios.post(backendUrl + "/api/user/register", {
         name,
@@ -49,7 +47,7 @@ const Login = () => {
     }
   };
 
-  const Login = async () => {
+  const login = async () => {
     const { data } = await axios.post(backendUrl + "/api/user/login", {
       email,
       password,
@@ -101,7 +99,7 @@ const Login = () => {
 
   const resetPassword = async () => {
     if (!email || !otp || !password) {
-      toast.error("please fill all the fields");
+      toast.error("Please fill all the fields");
       return;
     }
     const { data } = await axios.post(backendUrl + "/api/user/reset", {
@@ -116,14 +114,6 @@ const Login = () => {
     localStorage.setItem("token", data.token);
   };
 
-  const chain = (match, options) => {
-    let res = <></>;
-    options.forEach((element) => {
-      element.opt === match ? (res = <>{element.html}</>) : <></>;
-    });
-    return res;
-  };
-
   useEffect(() => {
     if (token) {
       navigate("/");
@@ -131,236 +121,194 @@ const Login = () => {
   }, [token]);
 
   return (
-    <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center">
-      <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-[#5E5E5E] text-sm shadow-lg">
-        <p className="text-2xl font-semibold">
-          {chain(state, [
-            { opt: "Login", html: "Login" },
-            { opt: "Sign Up", html: "Sign Up" },
-            { opt: "OTP", html: "Verify OTP" },
-            { opt: "Reset", html: "Rest Password" },
-          ])}
+    <form
+      onSubmit={onSubmitHandler}
+      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{
+        backgroundImage: "url('https://photo.safetyhandler.com/sc0/https:%2F%2Fmedia.safetyhandler.com%2Fmedia%2Fimage%2Fgif%2Fbucket%2Ff5a36ceabfbb6f240347cca1a558d957-0.gif%3Fview=image')", // New background GIF URL
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: "rgba(0, 0, 0, 0.6)", // Dark overlay for better contrast
+      }}
+    >
+      <div className="flex flex-col gap-6 p-8 max-w-md w-full bg-white bg-opacity-80 rounded-xl shadow-lg">
+        <h2 className="text-4xl font-bold text-center text-gray-800">{state === "Login" ? "Login" : state === "Sign Up" ? "Sign Up" : state === "OTP" ? "Verify OTP" : "Reset Password"}</h2>
+        <p className="text-center text-lg text-gray-600">
+          {state === "Login" ? "Log in to access your account" : state === "Sign Up" ? "Create a new account" : state === "OTP" ? "Enter the OTP sent to your email" : "Reset your password"}
         </p>
 
-        <p>
-          Please{" "}
-          {chain(state, [
-            { opt: "Login", html: "log in" },
-            { opt: "Sign Up", html: "sign up" },
-            { opt: "OTP", html: "enter OTP" },
-            { opt: "Reset", html: "enter OTP" },
-          ])}{" "}
-          to book appointment
-        </p>
-
-        {state === "Reset" ? (
-          <div className="w-full ">
-            <p>Email</p>
+        {state === "Reset" && (
+          <div className="mb-4">
+            <label className="block text-lg text-gray-700">Email</label>
             <input
               onChange={(e) => setEmail(e.target.value)}
               value={email}
-              className="border border-[#DADADA] rounded w-full p-2 mt-1"
+              className="border border-gray-300 rounded w-full p-3 mt-2 text-lg"
               type="email"
               required
             />
           </div>
-        ) : (
-          ""
         )}
 
-        {state === "Sign Up" ? (
-          <div className="w-full ">
-            <p>Full Name</p>
+        {state === "Sign Up" && (
+          <div className="mb-4">
+            <label className="block text-lg text-gray-700">Full Name</label>
             <input
               onChange={(e) => setName(e.target.value)}
               value={name}
-              className="border border-[#DADADA] rounded w-full p-2 mt-1"
+              className="border border-gray-300 rounded w-full p-3 mt-2 text-lg"
               type="text"
               required
             />
           </div>
-        ) : (
-          ""
         )}
 
-        {state === "OTP" || state === "Reset" ? (
-          <div className="w-full ">
-            <p>OTP</p>
+        {(state === "OTP" || state === "Reset") && (
+          <div className="mb-4">
+            <label className="block text-lg text-gray-700">OTP</label>
             <input
               disabled={state === "Reset" && !triggered}
-              onChange={(e) => {
-                setOtp(e.target.value);
-              }}
+              onChange={(e) => setOtp(e.target.value)}
               value={otp}
-              className="border border-[#DADADA] rounded w-full p-2 mt-1"
+              className="border border-gray-300 rounded w-full p-3 mt-2 text-lg"
               type="number"
               required
             />
           </div>
-        ) : (
-          ""
         )}
 
-        {state === "Login" || state === "Sign Up" ? (
+        {(state === "Login" || state === "Sign Up") && (
           <>
-            <div className="w-full ">
-              <p>Email</p>
+            <div className="mb-4">
+              <label className="block text-lg text-gray-700">Email</label>
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                className="border border-[#DADADA] rounded w-full p-2 mt-1"
+                className="border border-gray-300 rounded w-full p-3 mt-2 text-lg"
                 type="email"
                 required
               />
             </div>
-            <div className="w-full ">
-              <p>Password</p>
-              <div className="relative">
-                <input
-                  onChange={(e) => setPassword(e.target.value)}
-                  value={password}
-                  className="border border-[#DADADA] rounded w-full p-2 mt-1"
-                  type={passwordVisible ? "text" : "password"}
-                  required
-                />
-                <span
-                  onClick={() => setPasswordVisible(!passwordVisible)}
-                  className="absolute right-2 top-3 cursor-pointer"
-                >
-                  👁️
-                </span>
-              </div>
+            <div className="mb-4 relative">
+              <label className="block text-lg text-gray-700">Password</label>
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                className="border border-gray-300 rounded w-full p-3 mt-2 text-lg"
+                type={passwordVisible ? "text" : "password"}
+                required
+              />
+              <span
+                onClick={() => setPasswordVisible(!passwordVisible)}
+                className="absolute right-3 top-3 cursor-pointer text-gray-500"
+              >
+                {passwordVisible ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+              </span>
             </div>
           </>
-        ) : (
-          ""
         )}
 
-        {state === "OTP" ? (
+        {state === "OTP" && (
           <button
             onClick={triggerOtp}
-            className="bg-primary text-white w-full py-2 my-2 rounded-md text-base hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+            className="bg-blue-500 text-white w-full py-3 rounded-md text-lg hover:bg-blue-600 transition duration-300"
           >
-            ReSend OTP!!
+            Resend OTP
           </button>
-        ) : (
-          ""
         )}
 
-        {state === "Reset" ? (
+        {state === "Reset" && (
           <button
             onClick={triggerResetOtp}
-            className="bg-primary text-white w-full py-2 my-2 rounded-md text-base hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+            className="bg-blue-500 text-white w-full py-3 rounded-md text-lg hover:bg-blue-600 transition duration-300"
           >
-            Send OTP!!
+            Send OTP
           </button>
-        ) : (
-          ""
         )}
 
-        {state === "Reset" && triggered ? (
-          <div className="w-full ">
-            <p>Password</p>
+        {state === "Reset" && triggered && (
+          <div className="mb-4">
+            <label className="block text-lg text-gray-700">New Password</label>
             <input
-              placeholder="Enter new Password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
-              className="border border-[#DADADA] rounded w-full p-2 mt-1"
+              className="border border-gray-300 rounded w-full p-3 mt-2 text-lg"
               type="password"
               required
             />
           </div>
-        ) : (
-          ""
         )}
 
-        {state === "OTP" ? (
+        {state === "OTP" && (
           <button
             onClick={verifyOtp}
-            className="bg-primary text-white w-full py-2 my-2 rounded-md text-base"
+            className="bg-blue-500 text-white w-full py-3 rounded-md text-lg hover:bg-blue-600 transition duration-300"
           >
-            Verify
+            Verify OTP
           </button>
-        ) : (
-          ""
         )}
 
-        {state === "Sign Up" ? (
+        {state === "Sign Up" && (
           <button
             onClick={signUp}
-            className="bg-primary text-white w-full py-2 my-2 rounded-md text-base"
+            className="bg-blue-500 text-white w-full py-3 rounded-md text-lg hover:bg-blue-600 transition duration-300"
           >
-            Create account
+            Create Account
           </button>
-        ) : (
-          ""
         )}
 
-        {state === "Login" ? (
+        {state === "Login" && (
           <button
-            onClick={Login}
-            className="bg-primary text-white w-full py-2 my-2 rounded-md text-base"
+            onClick={login}
+            className="bg-blue-500 text-white w-full py-3 rounded-md text-lg hover:bg-blue-600 transition duration-300"
           >
-            Login
+            Log In
           </button>
-        ) : (
-          ""
         )}
 
-        {state === "Reset" ? (
+        {state === "Reset" && (
           <button
             onClick={resetPassword}
-            className="bg-primary text-white w-full py-2 my-2 rounded-md text-base"
+            className="bg-blue-500 text-white w-full py-3 rounded-md text-lg hover:bg-blue-600 transition duration-300"
           >
             Reset Password
           </button>
-        ) : (
-          ""
         )}
 
-        {state === "Sign Up" ? (
-          <p>
-            Already have an account?{" "}
-            <span
-              onClick={() => setState("Login")}
-              className="text-primary underline cursor-pointer"
-            >
-              Login here
-            </span>
-          </p>
-        ) : (
-          <p>
-            Create a new account?{" "}
-            <span
-              onClick={() => setState("Sign Up")}
-              className="text-primary underline cursor-pointer"
-            >
-              Click here
-            </span>
-          </p>
-        )}
-
-        {state === "Reset" ? (
-          <p>
-            Login{" "}
-            <span
-              onClick={() => setState("Login")}
-              className="text-primary underline cursor-pointer"
-            >
-              Click here
-            </span>
-          </p>
-        ) : (
-          <p>
-            Forgot password{" "}
-            <span
-              onClick={() => setState("Reset")}
-              className="text-primary underline cursor-pointer"
-            >
-              Click here
-            </span>
-          </p>
-        )}
+        <p className="text-center text-lg text-gray-600 mt-4">
+          {state === "Sign Up" ? (
+            <>
+              Already have an account?{" "}
+              <span
+                onClick={() => setState("Login")}
+                className="text-blue-500 cursor-pointer"
+              >
+                Login here
+              </span>
+            </>
+          ) : state === "Reset" ? (
+            <>
+              Back to{" "}
+              <span
+                onClick={() => setState("Login")}
+                className="text-blue-500 cursor-pointer"
+              >
+                Login
+              </span>
+            </>
+          ) : (
+            <>
+              Forgot your password?{" "}
+              <span
+                onClick={() => setState("Reset")}
+                className="text-blue-500 cursor-pointer"
+              >
+                Reset it here
+              </span>
+            </>
+          )}
+        </p>
       </div>
     </form>
   );
