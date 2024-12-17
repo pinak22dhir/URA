@@ -12,11 +12,32 @@ const About = () => {
         <div className="overlay absolute inset-0 bg-black bg-opacity-60 transition-all transform hover:bg-opacity-80 hover:scale-105"></div>
         <div className="container relative z-10 mx-auto px-6 py-24 text-center">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4 transition-all transform hover:scale-110 hover:text-blue-600">
-            Bringing health <br /> to life for the whole family.
+            Your Health, Our Priority
           </h1>
+          <p className="text-lg mb-6">
+            Connecting you to healthcare professionals at your fingertips with{" "}
+            <span className="text-blue-400 font-semibold">Doc2You</span>.
+          </p>
           <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-white text-lg font-medium transition-all transform hover:scale-110 hover:translate-y-1">
             Discover More
           </button>
+        </div>
+      </section>
+
+      {/* Introduction Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6 text-center md:w-3/4">
+          <h2 className="text-3xl font-semibold mb-4 text-blue-600">
+            About <span className="text-gray-800">Doc2You</span>
+          </h2>
+          <p className="text-gray-600 leading-relaxed">
+            Doc2You is a platform dedicated to making healthcare services
+            accessible, reliable, and efficient. Whether you need to consult a
+            specialist, book appointments, or manage medical records, we bring
+            doctors to your doorstep. We are transforming the way healthcare
+            connects with people by combining modern technology with
+            compassionate care.
+          </p>
         </div>
       </section>
 
@@ -30,17 +51,17 @@ const About = () => {
           />
           <div className="text md:w-1/2">
             <h2 className="text-3xl font-semibold mb-4">
-              Welcome To <span className="text-blue-600">MediConnect.</span>
+              Why Choose <span className="text-blue-600">Doc2You</span>?
             </h2>
             <p className="text-gray-600 mb-6">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              At Doc2You, we simplify your healthcare journey. Here’s what sets
+              us apart:
             </p>
             <ul className="mb-6 text-gray-700">
               {[
-                "Lorem ipsum dolor sit amet",
-                "Consectetur adipiscing elit",
-                "Eiusmod tempor incididunt ut labore",
+                "Instant appointment booking with top-rated doctors",
+                "A seamless user experience tailored for your needs",
+                "Secure and reliable platform for medical consultations",
               ].map((item, index) => (
                 <li
                   key={index}
@@ -52,7 +73,7 @@ const About = () => {
               ))}
             </ul>
             <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-white text-lg font-medium transition-all transform hover:scale-110 hover:translate-y-1">
-              About Us
+              Explore Our Services
             </button>
           </div>
         </div>
@@ -60,18 +81,20 @@ const About = () => {
 
       {/* Departments Section */}
       <section className="container mx-auto px-6 lg:px-20 py-16">
-        <h2 className="text-3xl font-semibold text-center mb-4">Departments</h2>
+        <h2 className="text-3xl font-semibold text-center mb-4">
+          Our Departments
+        </h2>
         <p className="text-gray-600 text-center mb-8">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Connecting you to specialists across various healthcare fields.
         </p>
         <div className="flex flex-wrap justify-center gap-6 mb-12">
           {[
             { name: "Dentistry", icon: "🦷" },
             { name: "Cardiology", icon: "❤" },
             { name: "ENT Specialists", icon: "👂" },
-            { name: "Astrology", icon: "🔮" },
-            { name: "Neuroanatomy", icon: "🧠" },
-            { name: "Blood Screening", icon: "🩸" },
+            { name: "Neurology", icon: "🧠" },
+            { name: "Dermatology", icon: "🌿" },
+            { name: "Pediatrics", icon: "🧸" },
           ].map((dept, index) => (
             <div
               key={index}
@@ -82,32 +105,15 @@ const About = () => {
             </div>
           ))}
         </div>
-        <div className="grid md:grid-cols-2 gap-12">
-          <img
-            src={assets.doc2}
-            alt="Department"
-            className="rounded-lg shadow-lg transition-all transform hover:scale-110 hover:shadow-xl hover:rotate-1"
-          />
-          <div className="flex flex-col justify-center">
-            <h3 className="text-2xl font-semibold mb-4">
-              Dentist with surgical mask holding scaler near patient
-            </h3>
-            <p className="text-gray-600 mb-6">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-md text-white transition-all transform hover:scale-110 hover:translate-y-1">
-              Make An Appointment
-            </button>
-          </div>
-        </div>
       </section>
 
       {/* Doctors Section */}
       <section className="container mx-auto px-6 lg:px-20 py-16">
-        <h2 className="text-3xl font-semibold text-center mb-4">Our Doctors</h2>
+        <h2 className="text-3xl font-semibold text-center mb-4">
+          Meet Our Doctors
+        </h2>
         <p className="text-gray-600 text-center mb-8">
-          Meet our team of experts dedicated to your health.
+          Skilled, experienced, and here to care for you.
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
           {[
@@ -143,7 +149,7 @@ const About = () => {
                 <img
                   src={doctor.image}
                   alt={doctor.name}
-                  className="h-full w-full object-cover object-top transition-all transform hover:scale-110 hover:translate-y-1 hover:rotate-2"
+                  className="h-full w-full object-cover transition-all transform hover:scale-110 hover:rotate-2"
                 />
               </div>
               <div className="p-6">
@@ -152,11 +158,6 @@ const About = () => {
                 </h3>
                 <p className="text-blue-600 font-medium">{doctor.specialty}</p>
                 <p className="text-gray-600 mt-3">{doctor.about}</p>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-gray-800 to-transparent text-white text-center opacity-0 transition-all hover:opacity-100 hover:translate-y-2">
-                <p className="text-sm">
-                  Click to learn more about {doctor.name}
-                </p>
               </div>
             </div>
           ))}
