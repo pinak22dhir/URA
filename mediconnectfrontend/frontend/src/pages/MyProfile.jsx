@@ -15,13 +15,11 @@ const MyProfile = () => {
     setIsUpdating(true);
     try {
       const formData = new FormData();
-
       formData.append("name", userData.name);
       formData.append("phone", userData.phone);
       formData.append("address", JSON.stringify(userData.address));
       formData.append("gender", userData.gender);
       formData.append("dob", userData.dob);
-
       image && formData.append("image", image);
 
       const { data } = await axios.post(backendUrl + "/api/user/update-profile", formData, { headers: { token } });
@@ -45,12 +43,13 @@ const MyProfile = () => {
   return (
     userData && (
       <div
-        className="max-w-3xl mx-auto p-6 sm:p-10 bg-white shadow-2xl rounded-lg flex flex-col gap-6 text-sm animate-fade-in"
+        className="max-w-3xl mx-auto p-6 sm:p-10 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 shadow-xl rounded-xl flex flex-col gap-6 text-sm animate-fade-in"
         style={{ animationDuration: "1s" }}
       >
+        {/* Profile Image Section */}
         {isEdit ? (
           <label htmlFor="image" className="cursor-pointer self-center relative group">
-            <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-primary shadow-lg transform group-hover:scale-105 transition-transform duration-300">
+            <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-purple-500 shadow-lg transition-transform duration-300 transform group-hover:scale-105">
               <img
                 className="object-cover w-full h-full"
                 src={image ? URL.createObjectURL(image) : userData.image}
@@ -66,15 +65,16 @@ const MyProfile = () => {
           <div className="self-center">
             <img
               src={userData.image}
-              className="w-40 h-40 rounded-full border-4 border-primary shadow-lg object-cover animate-scale-in"
+              className="w-40 h-40 rounded-full border-4 border-gradient-to-r from-blue-400 to-purple-500 shadow-lg object-cover animate-scale-in"
               alt="Profile"
             />
           </div>
         )}
 
+        {/* Name Input / Display */}
         {isEdit ? (
           <input
-            className="bg-gray-100 text-2xl font-semibold rounded-lg px-4 py-2 border border-gray-300 w-full hover:shadow-md focus:ring-2 focus:ring-primary transition-all"
+            className="bg-white text-2xl font-semibold rounded-lg px-4 py-2 border-2 border-gray-300 w-full focus:ring-2 focus:ring-primary transition-all duration-300"
             type="text"
             value={userData.name}
             onChange={(e) => setUserData((prev) => ({ ...prev, name: e.target.value }))}
@@ -87,6 +87,7 @@ const MyProfile = () => {
 
         <hr className="my-4 border-gray-200" />
 
+        {/* Contact Information Section */}
         <div className="space-y-6">
           <div>
             <p className="text-neutral-500 font-medium underline mb-3">Contact Information</p>
@@ -96,7 +97,7 @@ const MyProfile = () => {
               <p className="font-medium">Phone:</p>
               {isEdit ? (
                 <input
-                  className="bg-gray-100 px-2 py-1 rounded-lg border border-gray-300 hover:shadow-md focus:ring-2 focus:ring-primary transition-all"
+                  className="bg-gray-100 px-2 py-1 rounded-lg border-2 border-gray-300 focus:ring-2 focus:ring-primary w-full transition-all duration-300"
                   type="text"
                   value={userData.phone}
                   onChange={(e) => setUserData((prev) => ({ ...prev, phone: e.target.value }))}
@@ -108,7 +109,7 @@ const MyProfile = () => {
               {isEdit ? (
                 <div>
                   <input
-                    className="bg-gray-100 mb-1 px-2 py-1 rounded-lg border border-gray-300 w-full hover:shadow-md focus:ring-2 focus:ring-primary transition-all"
+                    className="bg-gray-100 mb-1 px-2 py-1 rounded-lg border-2 border-gray-300 w-full focus:ring-2 focus:ring-primary transition-all"
                     type="text"
                     value={userData.address.line1}
                     onChange={(e) =>
@@ -116,7 +117,7 @@ const MyProfile = () => {
                     }
                   />
                   <input
-                    className="bg-gray-100 px-2 py-1 rounded-lg border border-gray-300 w-full hover:shadow-md focus:ring-2 focus:ring-primary transition-all"
+                    className="bg-gray-100 px-2 py-1 rounded-lg border-2 border-gray-300 w-full focus:ring-2 focus:ring-primary transition-all"
                     type="text"
                     value={userData.address.line2}
                     onChange={(e) =>
@@ -134,13 +135,14 @@ const MyProfile = () => {
             </div>
           </div>
 
+          {/* Basic Information Section */}
           <div>
             <p className="text-neutral-500 font-medium underline mb-3">Basic Information</p>
             <div className="grid grid-cols-1 sm:grid-cols-[1fr_3fr] gap-y-3 text-neutral-700">
               <p className="font-medium">Gender:</p>
               {isEdit ? (
                 <select
-                  className="bg-gray-100 px-2 py-1 rounded-lg border border-gray-300 hover:shadow-md focus:ring-2 focus:ring-primary transition-all"
+                  className="bg-gray-100 px-2 py-1 rounded-lg border-2 border-gray-300 focus:ring-2 focus:ring-primary w-full transition-all duration-300"
                   value={userData.gender}
                   onChange={(e) => setUserData((prev) => ({ ...prev, gender: e.target.value }))}
                 >
@@ -153,7 +155,7 @@ const MyProfile = () => {
               <p className="font-medium">Birthday:</p>
               {isEdit ? (
                 <input
-                  className="bg-gray-100 px-2 py-1 rounded-lg border border-gray-300 hover:shadow-md focus:ring-2 focus:ring-primary transition-all"
+                  className="bg-gray-100 px-2 py-1 rounded-lg border-2 border-gray-300 focus:ring-2 focus:ring-primary w-full transition-all duration-300"
                   type="date"
                   value={userData.dob}
                   onChange={(e) => setUserData((prev) => ({ ...prev, dob: e.target.value }))}
@@ -165,12 +167,13 @@ const MyProfile = () => {
           </div>
         </div>
 
+        {/* Save Button */}
         <div className="mt-8 text-center">
           <button
             className={`px-8 py-2 rounded-full transition-all font-medium transform duration-300 focus:outline-none focus:ring-4 focus:ring-primary ${
               isEdit
                 ? "bg-primary text-white hover:bg-primary-dark hover:scale-105"
-                : "border border-primary text-primary hover:bg-primary hover:text-white hover:scale-105"
+                : "border-2 border-primary text-primary hover:bg-primary hover:text-white hover:scale-105"
             }`}
             onClick={isEdit ? updateUserProfileData : () => setIsEdit(true)}
             disabled={isUpdating}

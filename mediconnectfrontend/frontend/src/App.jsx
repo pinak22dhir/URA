@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Doctors from "./pages/Doctors";
 import HospitalMap from "./components/HospitalMap";
 import MedicalChatbot from "./components/chatbox";
+import ArticleDetail from "./pages/ArticleDetail";
 // Authentication 
 const isAuthenticated = () => {
   const token = localStorage.getItem("token"); 
@@ -120,6 +121,8 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        <Route path="/article/:id" element={<ArticleDetail />} />
+
         <Route
           path="/appointment/:docId"
           element={
