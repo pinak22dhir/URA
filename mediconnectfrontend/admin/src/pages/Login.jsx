@@ -1,135 +1,124 @@
-import React, { useContext, useState } from "react";
-import { assets } from "../assets/assets.js";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
-import { AdminContext } from "../context/AdminContext.jsx";
-import axios from "axios";
-import { toast } from "react-toastify";
+import React, { useContext, useState } from 'react';
+import { assets } from '../assets/assets';
+import { AdminContext } from '../context/AdminContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { DoctorContext } from '../context/DoctorContext';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 const Login = () => {
-  const [state, setState] = useState("Admin");
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [state, setState] = useState('Admin');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Added state for password visibility
+  const [loading, setLoading] = useState(false); // Added loading state
+  
 
   const { setAToken, backendUrl } = useContext(AdminContext);
+  const { setDToken } = useContext(DoctorContext);
 
-  const onSumbitHandler = async (e) => {
-    e.preventDefault(); // Prevent form reload
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+
     try {
-      if (state === "Admin") {
-        const { data } = await axios.post(backendUrl + "/api/admin/login", {
-          email,
-          password,
-        });
+      if (state === 'Admin') {
+        const { data } = await axios.post(`${backendUrl}/api/admin/login`, { email, password });
         if (data.success) {
-          console.log(data.success);
-          localStorage.setItem('aToken',data.token);    //so that when we refresh we don't have to login again
-          //console.log(data.token);
+          localStorage.setItem('aToken', data.token);
           setAToken(data.token);
-        }           
-        else{
-            toast.error(data.message)       //getting invalid message in our browser
+          toast.success('Admin login successful!');
+        } else {
+          toast.error(data.message);
         }
-      } 
+      } else {
+        const { data } = await axios.post(`${backendUrl}/api/doctor/login`, { email, password });
+        if (data.success) {
+          localStorage.setItem('dToken', data.token);
+          setDToken(data.token);
+          toast.success('Doctor login successful!');
+        } else {
+          toast.error(data.message);
+        }
+      }
     } catch (error) {
-      console.error("Login failed:", error.message);
-      
+      toast.error('Login failed. Please try again.');
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-teal-100 to-blue-100 flex items-center justify-center">
-      <div className="bg-white shadow-lg rounded-xl p-10 max-w-md w-full hover:shadow-xl transition-shadow duration-300">
-        {/* Animated Heading */}
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-6 tracking-wide transition-transform duration-500 hover:scale-110">
-          {state} Login
-        </h2>
-
-        <form onSubmit={onSumbitHandler}>
-          {/* Email Field */}
-          <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Email
-            </label>
-            <input
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              value={email}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
-              placeholder="Enter your email"
-            />
-          </div>
-
-          {/* Password Field */}
-          <div className="mb-6 relative">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Password
-            </label>
-            <input
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              type={passwordVisible ? "text" : "password"}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
-              placeholder="Enter your password"
-            />
-            {/* Show/Hide Password Button */}
-            <button
-              type="button"
-              onClick={() => setPasswordVisible(!passwordVisible)}
-              className="absolute right-3 top-9 text-gray-500 hover:text-blue-500 transition-colors duration-300"
-            >
-              {passwordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-            </button>
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold py-3 rounded-lg shadow-md hover:from-teal-600 hover:to-blue-600 transition-all duration-300"
-          >
-            Login
-          </button>
-        </form>
-
-        {/* Switch Between Admin and Doctor */}
-        <div className="text-center mt-6">
-          {state === "Admin" ? (
-            <p className="text-gray-700">
-              Doctor Login?{" "}
-              <span
-                onClick={() => setState("Doctor")}
-                className="text-blue-500 font-semibold cursor-pointer hover:underline hover:text-blue-600 transition-all duration-300"
-              >
-                Click here
-              </span>
-            </p>
-          ) : (
-            <p className="text-gray-700">
-              Admin Login?{" "}
-              <span
-                onClick={() => setState("Admin")}
-                className="text-blue-500 font-semibold cursor-pointer hover:underline hover:text-blue-600 transition-all duration-300"
-              >
-                Click here
-              </span>
-            </p>
-          )}
-        </div>
-
-        {/* Sign Up Link */}
-        <p className="text-center text-gray-600 text-sm mt-6">
-          Don’t have an account?{" "}
-          <a
-            href="#"
-            className="text-blue-500 font-semibold hover:underline hover:text-blue-600 transition-all duration-300"
-          >
-            Sign up
-          </a>
+    <form
+      onSubmit={onSubmitHandler}
+      className="min-h-[80vh] flex items-center bg-gray-50"
+    >
+      <div className="flex flex-col gap-4 m-auto items-start p-8 min-w-[340px] sm:min-w-[400px] border rounded-xl bg-white text-[#333] shadow-lg">
+        <p className="text-2xl font-bold text-center w-full">
+          {state} <span className="text-blue-400">Login</span>
         </p>
+        <div className="w-full">
+          <label className="block text-sm font-medium">Email</label>
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            className="border border-gray-300 rounded w-full p-2 mt-1 focus:outline-blue-600"
+            type="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div className="w-full relative">
+          <label className="block text-sm font-medium">Password</label>
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            className="border border-gray-300 rounded w-full p-2 mt-1 focus:outline-blue-600"
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Enter your password"
+            required
+          />
+          <span
+            className="absolute mt-3 right-3 top-[50%] translate-y-[-50%] text-gray-600 cursor-pointer"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
+          </span>
+        </div>
+        <button
+          disabled={loading}
+          className={`w-full py-2 rounded-md text-white text-base ${
+            loading
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-primary cursor-pointer'
+          }`}
+        >
+          {loading ? 'Processing...' : 'Login'}
+        </button>
+        {state === 'Admin' ? (
+          <p className="text-sm text-gray-600">
+            Doctor Login?{' '}
+            <span
+              className="text-blue-600 underline cursor-pointer"
+              onClick={() => setState('Doctor')}
+            >
+              Click here
+            </span>
+          </p>
+        ) : (
+          <p className="text-sm text-gray-600">
+            Admin Login?{' '}
+            <span
+              className="text-blue-400 underline cursor-pointer"
+              onClick={() => setState('Admin')}
+            >
+              Click here
+            </span>
+          </p>
+        )}
       </div>
-    </div>
+    </form>
   );
 };
 

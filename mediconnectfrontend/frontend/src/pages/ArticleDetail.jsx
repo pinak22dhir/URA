@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Import necessary hooks
+import { useParams } from "react-router-dom";
 
 const ArticleDetail = () => {
   const { id } = useParams(); // Get the article id from the URL
@@ -9,13 +9,20 @@ const ArticleDetail = () => {
   useEffect(() => {
     const storedArticles = JSON.parse(localStorage.getItem("articles"));
     if (storedArticles) {
-      const foundArticle = storedArticles.find((article) => article.id === parseInt(id));
+      // Ensure ID comparison matches type
+      const foundArticle = storedArticles.find((article) => article.id.toString() === id);
       setArticle(foundArticle);
     }
+<<<<<<< HEAD
   }, [id]); // Re-run this effect when the `id` changes
  console.log(articles);
+=======
+  }, [id]);
+
+  // Handle loading or not found states
+>>>>>>> upstream/main
   if (!article) {
-    return <p>Loading article...</p>; // Show loading message until the article is found
+    return <p>{!JSON.parse(localStorage.getItem("articles")) ? "No articles found." : "Loading article..."}</p>;
   }
 
   return (

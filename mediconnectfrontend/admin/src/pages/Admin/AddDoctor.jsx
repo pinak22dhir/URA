@@ -1,200 +1,159 @@
-import { AdminContext } from "../../context/AdminContext";
-import { assets } from "../../assets/assets";
-import { toast } from "react-toastify";
-import axios from "axios";
-import { useState, useContext } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Importing eye icons from react-icons
+import React, { useState, useContext } from 'react';
+import { assets } from '../../assets/assets';
+import { AdminContext } from '../../context/AdminContext';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icons
 
 const AddDoctor = () => {
-  const [docImg, setDocImg] = useState(null); // Initialize docImg as null, not false
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [experience, setExperience] = useState("1 Year");
-  const [fees, setFees] = useState("");
-  const [about, setAbout] = useState("");
-  const [speciality, setSpeciality] = useState("General physician");
-  const [degree, setDegree] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
+  const [docImg, setDocImg] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [experience, setExperience] = useState('1 Year');
+  const [fees, setFees] = useState('');
+  const [about, setAbout] = useState('');
+  const [speciality, setSpeciality] = useState('General physician');
+  const [degree, setDegree] = useState('');
+  const [address1, setAddress1] = useState('');
+  const [address2, setAddress2] = useState('');
   const [loading, setLoading] = useState(false); // Loading state
-  const [showPassword, setShowPassword] = useState(false); // Password visibility state
+  const [showPassword, setShowPassword] = useState(false); // State for toggling password visibility
 
-  // Get backend URL and token from context
   const { backendUrl, aToken } = useContext(AdminContext);
 
-  // Submit handler function
   const onSubmitHandler = async (event) => {
-    event.preventDefault(); // Prevent page reload on form submission
-
-    // Check if doctor image is selected
+    event.preventDefault(); // Prevent page reload
     if (!docImg) {
-      return toast.error("Image not Selected");
+      return toast.error('Image not Selected');
     }
-    setLoading(true);
-    const formData = new FormData();
 
-    formData.append("image", docImg);
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("experience", experience);
-    formData.append("fees", Number(fees));
-    formData.append("about", about);
-    formData.append("speciality", speciality);
-    formData.append("degree", degree);
-    formData.append(
-      "address",
-      JSON.stringify({ line1: address1, line2: address2 })
-    );
+    setLoading(true); // Set loading to true when submission starts
 
-    // Debug: console log FormData
-    formData.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    });
-
-    // API call to backend
     try {
-      const { data } = await axios.post(
-        backendUrl + "/api/admin/add-doctor",
-        formData,
-        {
-          headers: { aToken },
-        }
-      );
+      const formData = new FormData();
+      formData.append('image', docImg);
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('password', password);
+      formData.append('experience', experience);
+      formData.append('fees', Number(fees));
+      formData.append('about', about);
+      formData.append('speciality', speciality);
+      formData.append('degree', degree);
+      formData.append('address', JSON.stringify({ line1: address1, line2: address2 }));
 
-      // Check if the API response was successful
+      const { data } = await axios.post(`${backendUrl}/api/admin/add-doctor`, formData, {
+        headers: { aToken },
+      });
+
       if (data.success) {
         toast.success(data.message);
-        // Reset form states
-        setDocImg(null);
-        setName("");
-        setEmail("");
-        setPassword("");
-        setExperience("1 Year");
-        setFees("");
-        setAbout("");
-        setSpeciality("General physician");
-        setDegree("");
-        setAddress1("");
-        setAddress2("");
+        setDocImg(false);
+        setName('');
+        setPassword('');
+        setEmail('');
+        setAddress1('');
+        setAddress2('');
+        setDegree('');
+        setAbout('');
+        setFees('');
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message);
-      console.log(error);
+      toast.error(error.message || 'Something went wrong');
+      console.error(error);
     } finally {
-      setLoading(false);
+      setLoading(false); // Reset loading state after the request finishes
     }
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className="m-5 w-full max-w-5xl mx-auto">
-      <p className="mb-4 text-2xl font-bold text-center text-gray-700">
-        Add Doctor
-      </p>
+    <form onSubmit={onSubmitHandler} className="m-3 w-full">
+      <p className="mb-4 text-2xl font-semibold">Add Doctor</p>
 
-      <div className="bg-white shadow-lg rounded-lg px-8 py-8 border w-full space-y-8">
-        {/* Doctor Image Upload */}
-        <div className="flex items-center gap-4 mb-6 text-gray-500 hover:text-gray-700 transition-all duration-300">
+      <div className="bg-white px-6 py-6 border shadow-md rounded-lg w-full max-w-4xl">
+        <div className="flex items-center gap-4 mb-6 text-gray-500">
           <label htmlFor="doc-img" className="cursor-pointer">
             <img
-              className="w-20 h-20 bg-gray-100 rounded-full border-2 border-gray-300 p-1"
+              className="w-20 h-20 bg-gray-100 rounded-full object-cover"
               src={docImg ? URL.createObjectURL(docImg) : assets.upload_area}
               alt="Doctor"
             />
           </label>
-          <input
-            onChange={(e) => setDocImg(e.target.files[0])}
-            type="file"
-            id="doc-img"
-            hidden
-          />
-          <p className="text-sm">
-            Upload doctor <br /> picture
-          </p>
+          <input onChange={(e) => setDocImg(e.target.files[0])} type="file" id="doc-img" hidden />
+          <p>Upload doctor picture</p>
         </div>
 
-        {/* Doctor Form */}
-        <div className="flex flex-col lg:flex-row items-start gap-6 text-gray-600">
-          <div className="w-full lg:flex-1 flex flex-col gap-4">
-            {/* Name */}
-            <div className="flex-1 flex flex-col gap-1">
-              <p className="text-gray-700 font-semibold">Doctor Name</p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <div>
+              <label className="block mb-1 text-gray-600">Doctor Name</label>
               <input
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring focus:ring-primary"
                 type="text"
                 placeholder="Name"
                 required
               />
             </div>
-            {/* Email */}
-            <div className="flex-1 flex flex-col gap-1">
-              <p className="text-gray-700 font-semibold">Doctor Email</p>
+
+            <div>
+              <label className="block mb-1 text-gray-600">Doctor Email</label>
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring focus:ring-primary"
                 type="email"
                 placeholder="Email"
                 required
               />
             </div>
-            {/* Password */}
-            <div className="flex-1 flex flex-col gap-1 relative">
-              <p className="text-gray-700 font-semibold">Doctor Password</p>
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                required
-              />
-              {/* Eye Icon for Password */}
-              <span
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer align-middle mt-3.5"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-              </span>
+
+            <div>
+              <label className="block mb-1 text-gray-600">Doctor Password</label>
+              <div className="relative">
+                <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                  className="w-full border rounded px-4 py-2 focus:outline-none focus:ring focus:ring-primary pr-10"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-2.5 text-gray-600"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
-            {/* Experience */}
-            <div className="flex-1 flex flex-col gap-1">
-              <p className="text-gray-700 font-semibold">Experience</p>
+
+            <div>
+              <label className="block mb-1 text-gray-600">Experience</label>
               <select
                 onChange={(e) => setExperience(e.target.value)}
                 value={experience}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring focus:ring-primary"
               >
-                {[
-                  "1 Year",
-                  "2 Year",
-                  "3 Year",
-                  "4 Year",
-                  "5 Year",
-                  "6 Year",
-                  "7 Year",
-                  "8 Year",
-                  "9 Year",
-                  "10 Year",
-                ].map((exp) => (
-                  <option key={exp} value={exp}>
-                    {exp}
+                {Array.from({ length: 10 }, (_, i) => (
+                  <option key={i + 1} value={`${i + 1} Year`}>
+                    {i + 1} Year
                   </option>
                 ))}
               </select>
             </div>
-            {/* Fees */}
-            <div className="flex-1 flex flex-col gap-1">
-              <p className="text-gray-700 font-semibold">Fees</p>
+
+            <div>
+              <label className="block mb-1 text-gray-600">Fees</label>
               <input
                 onChange={(e) => setFees(e.target.value)}
                 value={fees}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring focus:ring-primary"
                 type="number"
                 placeholder="Fees"
                 required
@@ -202,50 +161,41 @@ const AddDoctor = () => {
             </div>
           </div>
 
-          <div className="w-full lg:flex-1 flex flex-col gap-4">
-            {/* Specialty */}
-            <div className="flex-1 flex flex-col gap-1">
-              <p className="text-gray-700 font-semibold">Specialty</p>
+          <div className="space-y-4">
+            <div>
+              <label className="block mb-1 text-gray-600">Speciality</label>
               <select
                 onChange={(e) => setSpeciality(e.target.value)}
                 value={speciality}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring focus:ring-primary"
               >
-                {[
-                  "General physician",
-                  "Gynecologist",
-                  "Dermatologist",
-                  "Pediatricians",
-                  "Neurologist",
-                  "Gastroenterologist",
-                ].map((specialty) => (
-                  <option key={specialty} value={specialty}>
-                    {specialty}
-                  </option>
-                ))}
+                <option value="General physician">General physician</option>
+                <option value="Gynecologist">Gynecologist</option>
+                <option value="Dermatologist">Dermatologist</option>
+                <option value="Pediatricians">Pediatricians</option>
+                <option value="Neurologist">Neurologist</option>
+                <option value="Gastroenterologist">Gastroenterologist</option>
               </select>
             </div>
 
-            {/* Education */}
-            <div className="flex-1 flex flex-col gap-1">
-              <p className="text-gray-700 font-semibold">Education</p>
+            <div>
+              <label className="block mb-1 text-gray-600">Education</label>
               <input
                 onChange={(e) => setDegree(e.target.value)}
                 value={degree}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring focus:ring-primary"
                 type="text"
                 placeholder="Education"
                 required
               />
             </div>
 
-            {/* Address */}
-            <div className="flex-1 flex flex-col gap-1">
-              <p className="text-gray-700 font-semibold">Address</p>
+            <div>
+              <label className="block mb-1 text-gray-600">Address</label>
               <input
                 onChange={(e) => setAddress1(e.target.value)}
                 value={address1}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+                className="w-full border rounded px-4 py-2 mb-2 focus:outline-none focus:ring focus:ring-primary"
                 type="text"
                 placeholder="Address 1"
                 required
@@ -253,7 +203,7 @@ const AddDoctor = () => {
               <input
                 onChange={(e) => setAddress2(e.target.value)}
                 value={address2}
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring focus:ring-primary"
                 type="text"
                 placeholder="Address 2"
                 required
@@ -262,28 +212,26 @@ const AddDoctor = () => {
           </div>
         </div>
 
-        <div>
-          <p className="mt-4 mb-2 text-gray-700 font-semibold">About Doctor</p>
+        <div className="mt-4">
+          <label className="block mb-1 text-gray-600">About Doctor</label>
           <textarea
             onChange={(e) => setAbout(e.target.value)}
             value={about}
-            className="w-full px-4 pt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
-            placeholder="Write about doctor"
+            className="w-full border rounded px-4 py-2 focus:outline-none focus:ring focus:ring-primary"
+            placeholder="Write about the doctor"
             rows={5}
             required
           />
         </div>
+
         <button
           type="submit"
-          disabled={loading} // Disable the button when loading
-          className={`w-full py-3 font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-opacity-50 
-            ${
-              loading
-                ? "bg-gray-400 text-gray-700 cursor-not-allowed"
-                : "bg-gradient-to-r from-teal-500 to-blue-500 text-white hover:from-teal-400 hover:to-blue-400"
-            }`}
+          className={`bg-primary px-10 py-3 mt-4 text-white font-semibold rounded-full transition duration-200 ${
+            loading ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+          disabled={loading}
         >
-          {loading ? "Adding Doctor..." : "Add Doctor"}
+          {loading ? 'Loading...' : 'Add Doctor'}
         </button>
       </div>
     </form>

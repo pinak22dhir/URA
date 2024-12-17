@@ -1,18 +1,19 @@
 import { useState } from "react";
 import axios from "axios";
 import { FaSyncAlt } from "react-icons/fa"; // Font Awesome sync icon for "generate" action
+import bgImage from "./ai.gif";
 
 export default function MedicalChatbot() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-  const [loading, setLoading] = useState(false); // State to manage loading status
+  const [loading, setLoading] = useState(false);
 
   async function generateAnswer() {
-    setLoading(true); // Set loading to true when the answer is being generated
+    setLoading(true);
 
     try {
       const response = await axios({
-        url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyCi-AQlA5EYZsx1PcdwvoFE1CoG0TS0PEg",
+        url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDyOg5sDRvZdZ5raRUgUoYMKVxNRTT3NEw",
         method: "post",
         data: {
           contents: [{ parts: [{ text: question }] }],
@@ -23,62 +24,66 @@ export default function MedicalChatbot() {
       console.error("Error generating answer:", error);
       setAnswer("Something went wrong. Please try again.");
     } finally {
-      setLoading(false); // Set loading to false after the answer is generated or on error
+      setLoading(false);
     }
   }
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center bg-cover bg-center transition-all duration-700 ease-in-out"
+      className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center overflow-hidden"
       style={{
-        backgroundImage: "linear-gradient(to right, #6a11cb, #2575fc)", // Gradient background
+          backgroundImage: `url(${bgImage})`,// Replace with your GIF or image URL
       }}
     >
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 via-purple-900/40 to-pink-900/70 z-0"></div>
+
       {/* Header Section */}
-      <header className="w-full text-center py-12 px-4 text-white transition-all duration-500 ease-in-out transform hover:scale-105">
-        <h1 className="text-4xl font-extrabold hover:text-black transition-all duration-300">
-          Get Medical Answers Instantly
-        </h1>
-        <p className="text-lg mt-4 hover:text-black transition-all duration-300">
+      <header className="relative z-10 text-center mb-12 text-white">
+        <h1 className="text-5xl font-bold mb-4">Get Medical Answers Instantly</h1>
+        <p className="text-xl font-light">
           AI-powered responses tailored to your medical queries.
         </p>
       </header>
 
       {/* Input Section */}
-      <section className="w-full max-w-2xl bg-white shadow-xl rounded-2xl border border-gray-200 p-8 flex flex-col items-center opacity-90 hover:opacity-100 transition-all duration-300">
+      <section className="relative z-10 w-full max-w-2xl bg-white/80 text-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 backdrop-blur-md">
+        <h2 className="text-2xl font-semibold text-center mb-6">Ask a Question</h2>
         <input
           type="text"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="Write your medical query here..."
-          className="w-full px-6 py-4 text-lg bg-gray-100 rounded-full border border-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-300 mb-6 transition-all duration-300"
+          className="w-full px-6 py-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 mb-6 shadow-sm"
         />
         <button
           onClick={generateAnswer}
-          disabled={loading} // Disable the button when loading is true
-          className={`w-auto bg-blue-500 text-black text-sm font-semibold py-2 px-4 rounded-full flex items-center justify-center shadow-md transition-all duration-300 ${
+          disabled={loading}
+          className={`w-full py-3 text-lg font-semibold text-white rounded-lg shadow-md transition-all duration-300 ${
             loading
-              ? "bg-gray-400 cursor-not-allowed"
-              : "hover:bg-blue-600 hover:scale-110 hover:shadow-lg"
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-600 hover:shadow-lg"
           }`}
         >
           {loading ? (
             "Generating..."
           ) : (
             <>
-              <FaSyncAlt className="mr-2 text-lg" /> Generate Answer
+              <FaSyncAlt className="mr-2" /> Generate Answer
             </>
           )}
         </button>
       </section>
 
       {/* Answer Section */}
-      <section className="w-full max-w-2xl bg-gray-50 shadow-md rounded-2xl border border-gray-200 mt-8 p-6 hover:scale-105 hover:shadow-2xl transition-all duration-500">
-        <h2 className="text-lg font-semibold text-gray-700 mb-4">Answer:</h2>
-        <p className="text-gray-800 whitespace-pre-wrap">
-          {answer || "Your AI-powered answer will appear here."}
-        </p>
-      </section>
+      {answer && (
+        <section className="relative z-10 w-full max-w-2xl bg-white/80 text-gray-800 rounded-2xl shadow-md mt-8 p-6 border border-gray-200 backdrop-blur-md">
+          <h2 className="text-xl font-semibold mb-4">AI-Powered Answer:</h2>
+          <p className="text-lg leading-relaxed whitespace-pre-wrap">
+            {answer}
+          </p>
+        </section>
+      )}
     </div>
   );
 }
