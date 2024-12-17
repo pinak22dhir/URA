@@ -41,6 +41,11 @@ const Navbar = () => {
    Connect
   </button>
 </NavLink>
+<NavLink to="http://localhost:5177/add">
+  <button className="py-2 px-6 bg-blue-600 text-white font-semibold rounded-md transition-all duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1">
+   Login as Admin
+  </button>
+</NavLink>
 
         </ul>
 

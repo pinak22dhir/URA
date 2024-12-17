@@ -12,7 +12,7 @@ const ArticleDetail = () => {
       const foundArticle = storedArticles.find((article) => article.id === parseInt(id));
       setArticle(foundArticle);
     }
-  }, [id]); // Re-run this effect when the `id` changes
+  }, [id]); // Re-run this effect when the id changes
 
   if (!article) {
     return <p>Loading article...</p>; // Show loading message until the article is found
@@ -32,3 +32,4 @@ const ArticleDetail = () => {
 };
 
 export default ArticleDetail;
+articles.js

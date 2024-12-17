@@ -3,29 +3,20 @@ import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/frontend_assets/assets';
 import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
-import bgImage from "./img.webp";
+import bgImage from "./pharr.jpg";
 
 const Collection = () => {
   const { products, search, shoeSearch } = useContext(ShopContext);
-  const [showFilter, setShowFilter] = React.useState(false);
   const [filteredProducts, setFilteredProducts] = React.useState([]);
   const [Category, setCategory] = React.useState([]);
   const [Type, setType] = React.useState([]);
   const [sort, setSort] = React.useState('relavent');
 
-  const toggleCategory = (e) => {
-    if (Category.includes(e.target.value)) {
-      setCategory(Category.filter((item) => item !== e.target.value));
+  const toggleCategory = (value) => {
+    if (Category.includes(value)) {
+      setCategory(Category.filter((item) => item !== value));
     } else {
-      setCategory([...Category, e.target.value]);
-    }
-  };
-
-  const toggleType = (e) => {
-    if (Type.includes(e.target.value)) {
-      setType(Type.filter((item) => item !== e.target.value));
-    } else {
-      setType([...Type, e.target.value]);
+      setCategory([...Category, value]);
     }
   };
 
@@ -75,74 +66,35 @@ const Collection = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
       <div
-  className="relative bg-blue-500 py-20 bg-cover bg-center"
-  style={{
-    backgroundImage: `url(${bgImage})`,
-    height: '300px', // Adjust height if needed
-  }}
-></div>
+        className="relative bg-blue-500 py-20 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${bgImage})`,
+          height: '300px',
+        }}
+      ></div>
 
-
-
+      {/* Categories Section */}
+      <div className="bg-white py-4 px-6 shadow-md">
+        <div className="flex justify-center gap-6 overflow-x-auto">
+          {['Antibiotic', 'Analgesic', 'Antacid'].map((category) => (
+            <button
+              key={category}
+              onClick={() => toggleCategory(category)}
+              className={`px-4 py-2 text-sm font-medium rounded-lg ${
+                Category.includes(category)
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              } transition`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Main Content */}
       <div className="flex flex-col sm:flex-row gap-8 py-10 px-6">
-        {/* FILTERS */}
-        <div className="sm:min-w-60 w-full sm:w-1/4 bg-white border rounded-lg shadow-md p-4">
-          <p
-            onClick={() => setShowFilter(!showFilter)}
-            className="mb-4 text-xl font-bold flex items-center cursor-pointer gap-2 text-gray-800 hover:text-blue-600 transition-colors"
-          >
-            FILTERS
-            <img
-              src={assets.dropdown_icon}
-              className={`h-4 transform ${showFilter ? "rotate-180" : ""} transition-transform`}
-              alt="Toggle"
-            />
-          </p>
-
-          {/* Filters Section */}
-          <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              showFilter ? "max-h-screen" : "max-h-0"
-            } sm:max-h-none border border-gray-300 rounded-md bg-white px-4 py-5`}
-          >
-            <p className="mb-3 text-sm font-medium text-gray-700 uppercase tracking-wide">
-              CATEGORIES
-            </p>
-            <div className="flex flex-col gap-4 text-sm font-light text-gray-700">
-              <label className="flex items-center gap-2">
-                <input
-                  className="form-checkbox w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-400"
-                  type="checkbox"
-                  value="Antibiotic"
-                  onChange={toggleCategory}
-                />
-                <span className="hover:text-blue-500 transition-colors">Antibiotic</span>
-              </label>
-              <label className="flex items-center gap-2">
-                <input
-                  className="form-checkbox w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-400"
-                  type="checkbox"
-                  value="Analgesic"
-                  onChange={toggleCategory}
-                />
-                <span className="hover:text-blue-500 transition-colors">Analgesic</span>
-              </label>
-              <label className="flex items-center gap-2">
-                <input
-                  className="form-checkbox w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-400"
-                  type="checkbox"
-                  value="Antacid"
-                  onChange={toggleCategory}
-                />
-                <span className="hover:text-blue-500 transition-colors">Antacid</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        {/* PRODUCTS */}
+        {/* Products Section */}
         <div className="flex-1">
           {/* Title and Sorting */}
           <div className="flex justify-between items-center mb-6">
@@ -177,8 +129,6 @@ const Collection = () => {
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 };
