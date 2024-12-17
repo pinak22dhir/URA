@@ -7,7 +7,7 @@ const About = () => {
       {/* Hero Section */}
       <section
         className="hero bg-cover bg-center relative text-white"
-        style={{ backgroundImage:`url(${assets.about_banner})` }}
+        style={`{ backgroundImage:url(${assets.about_banner}) }`}
       >
         <div className="overlay absolute inset-0 bg-black bg-opacity-60 transition-all transform hover:bg-opacity-80 hover:scale-105"></div>
         <div className="container relative z-10 mx-auto px-6 py-24 text-center">

@@ -6,14 +6,14 @@ const Testimonials = () => {
       id: 1,
       name: 'Dr. John Doe',
       specialization: 'Cardiologist',
-      feedback: 'The MediConnect platform has been an excellent tool for connecting with patients and managing appointments more efficiently. I highly recommend it!',
+      feedback: 'The Doc2You platform has been an excellent tool for connecting with patients and managing appointments more efficiently. I highly recommend it!',
       image: 'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=', 
     },
     {
       id: 2,
       name: 'Dr. Sarah Smith',
       specialization: 'Pediatrician',
-      feedback: 'I’ve been using MediConnect for a few months now, and it has made my practice much more streamlined. The AI-based symptom checker is a great addition.',
+      feedback: 'I’ve been using Doc2You for a few months now, and it has made my practice much more streamlined. The AI-based symptom checker is a great addition.',
       image: 'https://media.istockphoto.com/id/479378798/photo/portrait-of-female-doctor.jpg?s=612x612&w=0&k=20&c=P-W8KSJBYhYj2RSx1Zhff6FCGvtRDC3AAzox8deMmew=', 
     },
     {
@@ -27,7 +27,7 @@ const Testimonials = () => {
       id: 4,
       name: 'Dr. Emily Clark',
       specialization: 'Dermatologist',
-      feedback: 'MediConnect has transformed the way I interact with my patients. The interface is user-friendly, and the platform has streamlined my practice.',
+      feedback: 'Doc2You has transformed the way I interact with my patients. The interface is user-friendly, and the platform has streamlined my practice.',
       image: 'https://media.istockphoto.com/id/479378798/photo/portrait-of-female-doctor.jpg?s=612x612&w=0&k=20&c=P-W8KSJBYhYj2RSx1Zhff6FCGvtRDC3AAzox8deMmew=', 
     },
     {
@@ -48,7 +48,7 @@ const Testimonials = () => {
       id: 7,
       name: 'Dr. Susan Davis',
       specialization: 'Gynecologist',
-      feedback: 'MediConnect has truly improved the efficiency of my practice. The system is intuitive, and patients have found it very easy to use.',
+      feedback: 'Doc2You has truly improved the efficiency of my practice. The system is intuitive, and patients have found it very easy to use.',
       image: 'https://media.istockphoto.com/id/479378798/photo/portrait-of-female-doctor.jpg?s=612x612&w=0&k=20&c=P-W8KSJBYhYj2RSx1Zhff6FCGvtRDC3AAzox8deMmew=', 
     },
     {
@@ -58,34 +58,34 @@ const Testimonials = () => {
       feedback: 'The platform has been invaluable for keeping track of appointments and patient records. I highly recommend it to other healthcare professionals.',
       image: 'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=', 
     },
-    {
-      id: 9,
-      name: 'Dr. Robert Lee',
-      specialization: 'Surgeon',
-      feedback: 'The platform has been invaluable for keeping track of appointments and patient records. I highly recommend it to other healthcare professionals.',
-      image: 'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=', 
-    },
-    {
-      id: 10,
-      name: 'Dr. Robert Lee',
-      specialization: 'Surgeon',
-      feedback: 'The platform has been invaluable for keeping track of appointments and patient records. I highly recommend it to other healthcare professionals.',
-      image: 'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=', 
-    },
-    {
-      id: 11,
-      name: 'Dr. Robert Lee',
-      specialization: 'Surgeon',
-      feedback: 'The platform has been invaluable for keeping track of appointments and patient records. I highly recommend it to other healthcare professionals.',
-      image: 'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=', 
-    },
-    {
-      id: 12,
-      name: 'Dr. Robert Lee',
-      specialization: 'Surgeon',
-      feedback: 'The platform has been invaluable for keeping track of appointments and patient records. I highly recommend it to other healthcare professionals.',
-      image: 'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=', 
-    },
+    // {
+    //   id: 9,
+    //   name: 'Dr. Robert Lee',
+    //   specialization: 'Surgeon',
+    //   feedback: 'The platform has been invaluable for keeping track of appointments and patient records. I highly recommend it to other healthcare professionals.',
+    //   image: 'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=', 
+    // },
+    // {
+    //   id: 10,
+    //   name: 'Dr. Robert Lee',
+    //   specialization: 'Surgeon',
+    //   feedback: 'The platform has been invaluable for keeping track of appointments and patient records. I highly recommend it to other healthcare professionals.',
+    //   image: 'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=', 
+    // },
+    // {
+    //   id: 11,
+    //   name: 'Dr. Robert Lee',
+    //   specialization: 'Surgeon',
+    //   feedback: 'The platform has been invaluable for keeping track of appointments and patient records. I highly recommend it to other healthcare professionals.',
+    //   image: 'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=', 
+    // },
+    // {
+    //   id: 12,
+    //   name: 'Dr. Robert Lee',
+    //   specialization: 'Surgeon',
+    //   feedback: 'The platform has been invaluable for keeping track of appointments and patient records. I highly recommend it to other healthcare professionals.',
+    //   image: 'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=', 
+    // },
   ];
 
   const scrollRef = useRef(null);
