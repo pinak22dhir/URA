@@ -34,7 +34,7 @@ const PlaceOrder = () => {
 
   const initPay = (order) => {
     const options = {
-      key:"rzp_test_Y2bwgRQTVyKPpZ", // Replace with your Razorpay Key
+      key:"rzp_test_Wd86La9lVl8J6D", // Replace with your Razorpay Key
       amount: order.amount, 
       currency: order.currency,
       name: "order payemnt",
