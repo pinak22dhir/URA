@@ -6,13 +6,13 @@ import { toast } from 'react-toastify';
 import { DoctorContext } from '../context/DoctorContext';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
+
 const Login = () => {
   const [state, setState] = useState('Admin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); // Added state for password visibility
   const [loading, setLoading] = useState(false); // Added loading state
-  
 
   const { setAToken, backendUrl } = useContext(AdminContext);
   const { setDToken } = useContext(DoctorContext);
@@ -50,11 +50,16 @@ const Login = () => {
   };
 
   return (
-    <form
-      onSubmit={onSubmitHandler}
-      className="min-h-[80vh] flex items-center bg-gray-50"
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{
+        backgroundImage: `url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRHg1YOP22jD85skc-stYZZmdhWsVyrPGiGw&s")`,
+      }}
     >
-      <div className="flex flex-col gap-4 m-auto items-start p-8 min-w-[340px] sm:min-w-[400px] border rounded-xl bg-white text-[#333] shadow-lg">
+      <form
+        onSubmit={onSubmitHandler}
+        className="flex flex-col gap-4 m-auto items-start p-8 min-w-[340px] sm:min-w-[400px] border rounded-xl bg-white/80 text-[#333] shadow-lg backdrop-blur-md"
+      >
         <p className="text-2xl font-bold text-center w-full">
           {state} <span className="text-blue-400">Login</span>
         </p>
@@ -117,8 +122,8 @@ const Login = () => {
             </span>
           </p>
         )}
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 
