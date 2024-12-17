@@ -13,7 +13,7 @@ const ArticleDetail = () => {
       setArticle(foundArticle);
     }
   }, [id]); // Re-run this effect when the `id` changes
-
+ console.log(articles);
   if (!article) {
     return <p>Loading article...</p>; // Show loading message until the article is found
   }
