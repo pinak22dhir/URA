@@ -56,13 +56,14 @@ const Navbar = () => {
             
 
                 {token && 
-                <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
-                <div className='flex flex-col gap-2 p-4 bg-white text-gray-600 rounded-lg shadow-lg'>
-                    <p className='cursor-pointer hover:text-black'>My Profile</p>
-                    <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-black'>Orders</p>
-                    <p onClick={logout} className='cursor-pointer hover:text-black'>Logout</p>
+                <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-50">
+                <div className="flex flex-col gap-2 p-4 bg-white text-gray-600 rounded-lg shadow-lg">
+                  <p className="cursor-pointer hover:text-black">My Profile</p>
+                  <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black">Orders</p>
+                  <p onClick={logout} className="cursor-pointer hover:text-black">Logout</p>
                 </div>
-            </div>
+              </div>
+              
                 }
             </div>
            
