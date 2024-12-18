@@ -1,5 +1,6 @@
 import React from 'react';
 import { PeriodEntry } from '../types';
+import.meta.env.VITE_BACKEND_URL                                                                          
 
 interface EntryFormProps {
   date: string;
@@ -41,7 +42,7 @@ export const EntryForm: React.FC<EntryFormProps> = ({ date, entry, onSave }) => 
 
     // Send data to the backend API
     try {
-      const response = await fetch('http://localhost:5000/api/entries', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/entries`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
