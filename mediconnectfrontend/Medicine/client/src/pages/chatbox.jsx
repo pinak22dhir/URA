@@ -3,7 +3,10 @@ import axios from "axios";
 import { FaSyncAlt } from "react-icons/fa"; // Font Awesome sync icon for "generate" action
 import bgImage from "./ai.gif";
 import.meta.env.VITE_CHAT_KEY
+<<<<<<< HEAD
+=======
 
+>>>>>>> 968f636875a7c0ffd9cae128c377f680c5a57437
 
 export default function MedicalChatbot() {
   const [question, setQuestion] = useState("");
