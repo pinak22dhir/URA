@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 
 
 
+
 const PlaceOrder = () => {
 
   const{navigate,backendUrl,token,cartItems,setCartItems,getCartamount,delivery_fee,products} = useContext(ShopContext);
@@ -34,7 +35,7 @@ const PlaceOrder = () => {
 
   const initPay = (order) => {
     const options = {
-      key:"rzp_test_Wd86La9lVl8J6D", // Replace with your Razorpay Key
+      key:`${import.meta.env.VITE_RAZORPAY_KEY_ID}`, // Replace with your Razorpay Key
       amount: order.amount, 
       currency: order.currency,
       name: "order payemnt",

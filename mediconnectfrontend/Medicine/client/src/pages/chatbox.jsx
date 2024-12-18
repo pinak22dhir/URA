@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { FaSyncAlt } from "react-icons/fa"; // Font Awesome sync icon for "generate" action
 import bgImage from "./ai.gif";
+import.meta.env.VITE_CHAT_KEY
 
 export default function MedicalChatbot() {
   const [question, setQuestion] = useState("");
@@ -13,7 +14,7 @@ export default function MedicalChatbot() {
 
     try {
       const response = await axios({
-        url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDyOg5sDRvZdZ5raRUgUoYMKVxNRTT3NEw",
+        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${import.meta.env.VITE_CHAT_KEY}`,
         method: "post",
         data: {
           contents: [{ parts: [{ text: question }] }],
