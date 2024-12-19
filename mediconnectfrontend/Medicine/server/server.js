@@ -22,7 +22,9 @@ connectCloudinary();
 
 app.use(express.json());
 app.use(cors());
-
+app.get("/", (req, res) => {
+  res.send("API WORKING GREAT");
+});
 // API Endpoints
 
 app.use("/api/user", userRouter);

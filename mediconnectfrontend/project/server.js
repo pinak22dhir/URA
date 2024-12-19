@@ -4,13 +4,15 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 const app = express();
-
+app.get('/',(req,res) => {
+  res.send('API WORKING GREAT')
+})
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB connection with error handling
-mongoose.connect('mongodb://localhost:27017/period_tracker', {
+mongoose.connect('mongodb+srv://kaushaki1771be22:hIMx647VmrRU2J8X@cluster0.fxlxo.mongodb.net/period_tracker', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

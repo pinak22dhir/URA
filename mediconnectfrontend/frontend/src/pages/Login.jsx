@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi"; // Eye icons for password toggle
+import { Link } from 'react-router-dom'; // Import Link for navigation
 
 const Login = () => {
   const [state, setState] = useState("Sign Up");
@@ -13,8 +14,11 @@ const Login = () => {
   const [otp, setOtp] = useState("");
   const [triggered, setTriggered] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false); // State for password visibility
+<<<<<<< HEAD
   const [backgroundImage, setBackgroundImage] = useState(""); // State to hold background image URL
 
+=======
+>>>>>>> ab48e055cbc44f7eec9b70138dc4464933a3ca5d
   const navigate = useNavigate();
   const { backendUrl, token, setToken } = useContext(AppContext);
 
@@ -140,7 +144,12 @@ const Login = () => {
       onSubmit={onSubmitHandler}
       className="min-h-screen flex items-center justify-center bg-cover bg-center"
       style={{
+<<<<<<< HEAD
         backgroundImage: `url('${backgroundImage}')`, // Dynamically set the background image
+=======
+        backgroundImage:
+          "url('https://photo.safetyhandler.com/sc0/https:%2F%2Fmedia.safetyhandler.com%2Fmedia%2Fimage%2Fgif%2Fbucket%2Ff5a36ceabfbb6f240347cca1a558d957-0.gif%3Fview=image')", // New background GIF URL
+>>>>>>> ab48e055cbc44f7eec9b70138dc4464933a3ca5d
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -148,9 +157,29 @@ const Login = () => {
       }}
     >
       <div className="flex flex-col gap-6 p-8 max-w-md w-full bg-white bg-opacity-80 rounded-xl shadow-lg">
+<<<<<<< HEAD
         <h2 className="text-4xl font-bold text-center text-gray-800">{state === "Login" ? "Admin Login" : state === "Sign Up" ? "Create an Admin Account" : state === "OTP" ? "Verify OTP" : "Reset Password"}</h2>
         <p className="text-center text-lg text-gray-600">
           {state === "Login" ? "Log in to your admin panel" : state === "Sign Up" ? "Create a new admin account" : state === "OTP" ? "Enter the OTP sent to your email" : "Reset your admin password"}
+=======
+        <h2 className="text-4xl font-bold text-center text-gray-800">
+          {state === "Login"
+            ? "Login"
+            : state === "Sign Up"
+            ? "Sign Up"
+            : state === "OTP"
+            ? "Verify OTP"
+            : "Reset Password"}
+        </h2>
+        <p className="text-center text-lg text-gray-600">
+          {state === "Login"
+            ? "Log in to access your account"
+            : state === "Sign Up"
+            ? "Create a new account"
+            : state === "OTP"
+            ? "Enter the OTP sent to your email"
+            : "Reset your password"}
+>>>>>>> ab48e055cbc44f7eec9b70138dc4464933a3ca5d
         </p>
 
         {state === "Reset" && (
@@ -274,12 +303,17 @@ const Login = () => {
         )}
 
         {state === "Login" && (
-          <button
-            onClick={login}
-            className="bg-blue-500 text-white w-full py-3 rounded-md text-lg hover:bg-blue-600 transition duration-300"
-          >
-            Log In
-          </button>
+          <>
+            <button
+              onClick={login}
+              className="bg-blue-500 text-white w-full py-3 rounded-md text-lg hover:bg-blue-600 transition duration-300"
+            >
+              Log In
+            </button>
+            <Link to="http://localhost:5174/" className="text-blue-500 text-2xl font-semibold text-center cursor-pointer hover:text-blue-700 transform hover:translate-y-[-3px] transition-all duration-300 hover:shadow-lg">
+      <h1>Login as Admin</h1>
+    </Link>
+          </>
         )}
 
         {state === "Reset" && (
